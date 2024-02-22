@@ -1,0 +1,131 @@
+# Raster data
+
+```{r}
+#| label: libraries
+#| warning: false
+library(dplyr)
+library(gdalcubes)
+library(rstac)
+library(sf)
+library(terra)
+library(tmap)
+```
+
+## Read data into R
+
+```{r}
+data("lsl", "study_mask", package = "spDataLarge")
+landslides = st_as_sf(
+  lsl,
+  coords = c("x", "y"), 
+  crs = "EPSG:32717"
+)
+terrain = rast(system.file("raster/ta.tif", package = "spDataLarge"))
+terrain = mask(terrain, study_mask)
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| fig-width: 15
+#| fig-height: 4.5
+#| fig-column: page
+tm_shape(terrain) +
+  tm_raster(
+    col.scale = tm_scale_continuous(midpoint = NA),
+    col.legend = tm_legend(orientation = "landscape")
+  ) +
+  tm_facets_hstack() +
+  tm_shape(landslides) +
+  tm_dots() 
+```
+
+## Raster-vector operations
+
+```{r}
+extract(terrain, landslides)
+```
+
+## Data cubes
+
+```{r}
+api_url = "https://earth-search.aws.element84.com/v1"
+client = stac(api_url)
+collections(client) |> get_request()
+```
+
+```{r}
+# collection ID
+collection = "sentinel-2-l2a"
+study_mask_wgs84 = st_transform(study_mask, 4326)
+# date range
+time_extent = c("2020-01-01", "2023-12-31")
+```
+
+```{r}
+items = client  |> 
+  stac_search(
+      collections = collection,
+      intersects = study_mask_wgs84, 
+      datetime = paste0(time_extent,"T00:00:00Z", collapse = "/"),
+      limit = 100
+    ) |> 
+  post_request() |> 
+  items_filter(
+    filter_fn = function(x) {x$properties$`eo:cloud_cover` < 25}
+  )
+items_length(items)
+```
+
+```{r}
+bbox = study_mask |> st_bbox()
+```
+
+```{r}
+assets = c("red","green","blue","nir","scl")
+col = stac_image_collection(
+  items$features,
+  asset_names = assets
+)
+extent = list(
+  t0 = time_extent[1], t1 = time_extent[2],
+  left = bbox["xmin"], bottom = bbox["ymin"], 
+  right = bbox["xmax"], top = bbox["ymax"]
+)
+view = cube_view(
+  srs = "epsg:32717",  
+  extent = extent,
+  dx = 30, dy = 30, dt = "P1D",
+  aggregation = "median",
+  resampling = "bilinear"
+)
+s2_mask = image_mask("scl", values = c(3,8,9))
+raster_cube(col, view)
+```
+
+```{r}
+#| eval: false
+raster_cube(col, view) |> 
+  select_bands(c("red","green","blue")) |> 
+  reduce_time(c("median(red)", "median(green)", "median(blue)")) |>
+  plot(rgb = 3:1, zlim=c(0, 1200)) 
+```
+
+```{r}
+#| eval: false
+raster_cube(col, view) |> 
+  select_bands(c("red","nir")) |>
+  apply_pixel(c("(nir-red)/(nir+red)"), names = "NDVI") |>
+  plot(
+    zlim = c(0, 1),
+    nbreaks = 10,
+    col = RColorBrewer::brewer.pal(9, "YlGn"),
+    key.pos = 1
+  )
+```
+
+```{r}
+#| include: false
+# automatically create a bib database for R packages
+knitr::write_bib(c(.packages()), 'packages.bib')
+```

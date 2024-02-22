@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.550">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introduction to R for the Geosciences - 2&nbsp; Raster data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./resources.html" rel="next">
+<link href="./vector.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./raster.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Raster data</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Introduction to R for the Geosciences</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vector.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Vector data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./raster.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Raster data</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Further resources</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#read-data-into-r" id="toc-read-data-into-r" class="nav-link active" data-scroll-target="#read-data-into-r"><span class="header-section-number">2.1</span> Read data into R</a></li>
+  <li><a href="#raster-vector-operations" id="toc-raster-vector-operations" class="nav-link" data-scroll-target="#raster-vector-operations"><span class="header-section-number">2.2</span> Raster-vector operations</a></li>
+  <li><a href="#data-cubes" id="toc-data-cubes" class="nav-link" data-scroll-target="#data-cubes"><span class="header-section-number">2.3</span> Data cubes</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Raster data</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gdalcubes)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstac)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="read-data-into-r" class="level2 page-columns page-full" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="read-data-into-r"><span class="header-section-number">2.1</span> Read data into R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"lsl"</span>, <span class="st">"study_mask"</span>, <span class="at">package =</span> <span class="st">"spDataLarge"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>landslides <span class="ot">=</span> <span class="fu">st_as_sf</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  lsl,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">"x"</span>, <span class="st">"y"</span>), </span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">crs =</span> <span class="st">"EPSG:32717"</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>terrain <span class="ot">=</span> <span class="fu">rast</span>(<span class="fu">system.file</span>(<span class="st">"raster/ta.tif"</span>, <span class="at">package =</span> <span class="st">"spDataLarge"</span>))</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>terrain <span class="ot">=</span> <span class="fu">mask</span>(terrain, study_mask)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell page-columns page-full">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(terrain) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.scale =</span> <span class="fu">tm_scale_continuous</span>(<span class="at">midpoint =</span> <span class="cn">NA</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.legend =</span> <span class="fu">tm_legend</span>(<span class="at">orientation =</span> <span class="st">"landscape"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_facets_hstack</span>() <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_shape</span>(landslides) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display page-columns page-full">
+<div class="page-columns page-full">
+<figure class="figure page-columns page-full">
+<p class="page-columns page-full"><img src="raster_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img column-page" width="1440"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="raster-vector-operations" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="raster-vector-operations"><span class="header-section-number">2.2</span> Raster-vector operations</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract</span>(terrain, landslides)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     ID    slope         cplan         cprof     elev log10_carea
+1     1 33.75185  2.318045e-02  3.193061e-03 2422.810    2.784319
+2     2 39.40821 -3.863891e-02 -1.718781e-02 2051.771    4.146012
+3     3 37.45409 -1.332911e-02  9.671087e-03 1957.832    3.643556
+4     4 31.49607  4.093145e-02  5.888638e-03 1968.621    2.268703
+5     5 44.07456  9.686948e-03  5.149810e-03 3007.774    3.003426
+6     6 29.85981 -9.047707e-03 -5.738329e-03 1736.887    3.174073
+7     7 31.57465  5.562415e-02  2.183851e-02 2583.551    2.251919
+8     8 53.42223  5.728012e-03  1.018965e-03 2522.235    2.583303
+9     9 32.60400  2.404029e-02 -1.693998e-02 1929.097    2.836453
+10   10 37.45409 -1.332911e-02  9.671087e-03 1957.832    3.643556
+11   11 58.26019 -2.992846e-04  6.817750e-04 2924.928    2.399287
+12   12 46.91724 -9.483863e-03  2.478596e-03 2887.558    3.122851
+13   13 23.29725  3.337473e-02  1.426642e-04 2331.266    2.745058
+14   14 33.77059  7.356290e-02  6.390937e-03 2370.400    2.523975
+15   15 42.71372 -3.335518e-02 -2.983138e-02 1967.411    2.971358
+16   16 40.55981  2.641318e-02  1.289207e-02 2927.660    2.952295
+17   17 42.86148  3.368311e-03 -1.135860e-03 1999.332    2.941056
+18   18 29.53657  4.144406e-02 -1.698871e-03 2251.079    2.619167
+19   19 30.87186 -6.682700e-03 -1.666695e-03 2264.238    2.855722
+20   20 47.64563  2.719668e-03 -6.842937e-03 2335.684    2.713199
+21   21 28.52962  4.288215e-02  2.663913e-03 1937.239    2.862155
+22   22 43.81010 -6.932516e-05  1.157153e-02 2155.389    2.737203
+23   23 28.69878 -3.542582e-02 -2.667448e-02 2230.852    3.307163
+24   24  6.93887  1.441456e-01  1.718234e-03 2342.939    2.344592
+25   25 36.55676 -1.470322e-02  9.177290e-03 2109.745    3.058402
+26   26 35.98099 -1.046782e-02  4.394065e-05 2503.549    3.033611
+27   27 43.59707  3.367458e-03 -6.482287e-03 2645.572    2.785523
+28   28 46.81817  3.253875e-02  8.843658e-03 1772.153    2.475240
+29   29 33.44778  4.502997e-03  3.389013e-03 2082.014    2.438436
+30   30 27.07215 -9.493522e-02 -2.424320e-02 2156.083    3.907963
+31   31 26.08279  1.338073e-01  2.478126e-02 2498.046    2.096588
+32   32 41.54730  5.421016e-02  9.799737e-03 2128.501    2.813108
+33   33 38.66507 -4.097585e-02 -4.605201e-03 2894.606    3.040207
+34   34 50.14442  2.810015e-03  1.138262e-02 2126.600    2.802235
+35   35 23.42361  5.025858e-02  4.641415e-05 2249.739    2.405374
+36   36 45.25757  2.551018e-02  8.240187e-03 2306.013    2.837799
+37   37 29.86548  1.929136e-02  6.449350e-03 2482.221    2.466838
+38   38 39.63340  3.199476e-02  8.915653e-03 2355.501    2.744157
+39   39 59.79627 -6.059852e-03  3.054675e-03 2151.217    2.854841
+40   40 34.28851 -2.021039e-02  1.034499e-02 1998.962    3.248179
+41   41 43.17234 -1.985855e-02  4.681577e-03 1997.195    3.319794
+42   42 23.72286  6.184173e-02  8.611570e-04 2543.762    2.254927
+43   43 16.17020  5.970191e-02  4.945124e-03 2636.382    2.261469
+44   44 39.15101 -1.236342e-01 -1.539132e-02 2026.371    4.098986
+45   45 33.53363  4.257126e-03 -8.076146e-05 2028.775    2.944648
+46   46 55.46574  1.132544e-02  4.195274e-03 2514.474    2.657632
+47   47 18.22999  1.036127e-02  3.548319e-03 2427.330    2.405915
+48   48 59.52966  5.623095e-02  1.055489e-02 1997.072    2.929029
+49   49 41.36502  4.462342e-02  2.045067e-02 2594.773    2.282752
+50   50 42.32060  9.131694e-03 -2.504581e-03 1965.241    2.706074
+51   51 47.79042  4.361710e-02  9.344473e-04 1954.522    2.598975
+52   52 43.20668 -2.143989e-04  1.147216e-02 2436.391    2.316616
+53   53 41.51317  3.695706e-02  1.607392e-02 2752.212    3.216798
+54   54 42.04275  1.640921e-02  1.775747e-02 2271.363    2.450987
+55   55 28.48121  9.272273e-03 -5.196783e-03 2261.553    2.644285
+56   56 28.13984  7.512274e-02 -1.603941e-01 2362.354    4.714949
+57   57 39.03300  1.854824e-02  1.639156e-02 2320.634    2.849694
+58   58 42.28763  2.807385e-03  2.097834e-02 2224.136    3.067907
+59   59 38.86034 -1.443017e-02 -2.852337e-03 2188.016    2.785799
+60   60 32.01223  4.835417e-02  3.298659e-02 2393.329    2.144555
+61   61 46.43994 -8.295034e-03 -1.326350e-03 2238.560    2.921296
+62   62 53.94340 -3.013228e-02  7.525587e-03 2676.408    2.902876
+63   63 40.85689 -2.399448e-03  3.335953e-03 2740.349    2.958059
+64   64 37.66177  3.178702e-02 -2.295080e-02 2673.289    3.161695
+65   65 44.50689  7.115251e-02  1.277166e-02 2269.229    2.577687
+66   66 37.21306 -1.094916e-03  1.006703e-02 2827.399    2.389585
+67   67 35.26294 -8.508530e-03 -1.200488e-03 2026.382    2.685149
+68   68 38.34028  1.093460e-02  8.899064e-03 1849.639    3.008394
+69   69 41.47794  1.859435e-02 -8.368388e-04 2731.742    2.578092
+70   70 38.32935  2.913067e-02 -4.062713e-03 2304.776    2.835844
+71   71 38.31510  1.409170e-02 -2.555898e-02 2403.569    2.844729
+72   72 35.89376 -6.122781e-03  1.467939e-02 2018.709    2.726037
+73   73 31.93613  2.218352e-02 -4.890798e-03 2759.432    3.001965
+74   74 26.67540 -6.223623e-02 -6.850090e-03 2239.363    3.078714
+75   75 23.51581 -2.937961e-02  2.465074e-02 2262.645    2.363750
+76   76 33.72795 -1.814712e-03 -1.993196e-02 2093.074    3.479436
+77   77 45.33412 -9.604224e-04  1.062938e-02 2254.233    3.103243
+78   78 26.55978 -5.948493e-03  7.392223e-03 2242.370    2.676729
+79   79 17.45520  8.214449e-03 -1.861866e-03 1856.777    3.921842
+80   80 30.10545 -1.365517e-02  2.004229e-03 2290.617    2.843214
+81   81 39.57793  4.089604e-02  3.899079e-02 1953.859    2.806337
+82   82 36.15272  4.737817e-02  7.124655e-03 1984.105    2.529553
+83   83 45.11603  2.851252e-03 -1.119306e-02 2388.712    2.646574
+84   84 58.71784 -1.037178e-02  5.706794e-03 2759.893    2.942896
+85   85 46.36501  3.969350e-03  2.358004e-03 1968.184    2.979652
+86   86 42.39856  1.520504e-02 -6.803407e-03 2322.373    2.710502
+87   87 41.07899 -1.658674e-02 -3.413929e-03 3049.759    3.047339
+88   88 43.94651 -1.395900e-02  2.470387e-03 2171.672    2.895129
+89   89 28.02133 -9.787372e-02  1.956457e-03 2157.691    3.293419
+90   90 45.84038  1.245134e-03  4.276635e-05 2380.398    2.668862
+91   91 19.66683 -6.732700e-02 -2.466178e-02 1785.467    4.441102
+92   92 28.55267  2.368261e-05  4.524783e-03 2293.311    3.224217
+93   93 37.46987 -7.967652e-03 -1.151800e-02 2934.422    3.054687
+94   94 40.09640  4.596514e-02 -3.800982e-03 2510.958    2.582192
+95   95 31.48362  9.466236e-03  1.392927e-02 2429.346    2.432269
+96   96 46.81216  1.012616e-01  2.793238e-02 2055.072    2.863389
+97   97 38.09627  9.237009e-03  6.244432e-04 2401.767    2.622561
+98   98 45.47453  3.596340e-02  1.212153e-02 2569.429    2.401933
+99   99 33.80916  4.571360e-02  8.194037e-03 2491.484    2.948417
+100 100 33.18262 -2.518835e-03 -4.395195e-02 2408.540    2.839326
+101 101 15.11243  6.235277e-02  4.713142e-02 2552.876    2.030135
+102 102 22.61043 -4.225996e-02 -1.888933e-02 2160.855    2.818710
+103 103 43.82582 -4.781982e-03 -8.903554e-03 2351.823    2.897542
+104 104 21.68480 -1.444454e-02 -4.480698e-03 2376.615    2.837008
+105 105 23.70140 -1.370482e-01 -1.721769e-02 1875.460    4.235079
+106 106 39.66218 -8.485147e-03  4.329981e-03 2090.234    2.422884
+107 107 43.68028  1.221214e-02  8.691642e-04 1836.458    3.368704
+108 108 52.53584  1.706195e-03  2.027703e-04 2466.930    2.975179
+109 109 29.32012  7.677773e-02  2.173925e-02 1931.912    2.193136
+110 110 44.66820 -1.597454e-01 -5.188160e-02 2491.082    3.417852
+111 111 54.62067  7.915785e-03  2.184546e-03 2436.217    2.697488
+112 112 54.68697  9.574343e-03 -1.140241e-02 2737.645    2.948999
+113 113 46.29578  5.078686e-03  8.207920e-03 2577.380    2.646623
+114 114 34.17887 -4.789771e-03 -3.843909e-03 2526.793    2.782621
+115 115 43.36516 -4.271127e-02 -2.222481e-02 2066.660    3.252682
+116 116 19.97258 -7.472933e-03  3.588403e-03 2309.721    2.521621
+117 117 13.56215  3.620369e-02  4.532706e-02 2244.619    2.025581
+118 118 54.16659 -2.454900e-02 -9.033611e-04 2629.948    2.558285
+119 119 32.24807 -1.505870e-02  1.307297e-02 2027.573    4.113126
+120 120 32.17738  1.790203e-02 -2.329504e-03 2524.280    2.429098
+121 121 30.28140 -1.585944e-02  5.488885e-03 2187.465    2.749489
+122 122 51.75134  7.403275e-03  1.081921e-02 1994.868    2.498101
+123 123 34.05304  2.294734e-02 -8.884406e-03 2438.502    2.723193
+124 124 36.97097  1.742964e-02  1.159868e-02 2183.736    2.986292
+125 125 45.87731  2.501073e-02  1.143060e-02 2195.066    2.361210
+126 126 45.58514 -2.971570e-03 -3.357250e-03 2208.182    2.621494
+127 127 31.40125 -2.402701e-02 -2.044096e-03 2055.901    2.801646
+128 128 40.87225  2.365215e-02  1.877307e-02 2401.515    2.397002
+129 129 37.91589  2.087748e-02  4.518203e-03 2650.925    2.414669
+130 130 40.59356  7.379925e-02  1.869612e-02 2601.456    2.343023
+131 131 21.00746  2.832399e-02  1.668806e-02 2054.646    2.251516
+132 132 49.84955  2.041319e-02  1.849838e-02 2174.436    2.457770
+133 133 17.83576  2.168389e-02  1.767545e-03 2601.265    2.236972
+134 134 44.75921 -5.774208e-03 -1.976425e-02 2271.367    3.553268
+135 135 40.72350 -5.328718e-02 -2.486477e-03 2725.473    3.103060
+136 136 20.85469  3.770345e-02 -9.097418e-03 2180.316    2.537614
+137 137 37.13752  2.333344e-02  3.879400e-03 1961.391    2.674078
+138 138 43.99876  3.166475e-02  8.196194e-03 2342.704    2.633144
+139 139 30.80019  2.196475e-02 -5.356815e-03 2359.402    2.798859
+140 140 44.36879  5.530804e-02  1.762612e-02 2652.927    2.183472
+141 141 28.20522  3.204592e-02  7.598214e-03 2288.749    2.491723
+142 142 41.78449 -2.738774e-02 -9.858360e-05 2469.109    2.846037
+143 143 42.05978 -3.786551e-02 -5.523017e-03 2630.312    3.306313
+144 144 17.44387 -2.143005e-02 -6.316737e-03 2117.917    2.955213
+145 145 45.13868 -1.232472e-03  1.441921e-04 2152.486    3.215685
+146 146 34.49717  2.489669e-02 -1.206218e-02 2186.123    3.168959
+147 147 36.08297 -1.078811e-02  2.641022e-02 2391.468    2.589645
+148 148 40.35485 -1.750910e-02 -2.659107e-04 2593.750    2.700855
+149 149 33.44166  2.159415e-02 -7.839352e-03 2249.667    2.710709
+150 150 26.29881  2.171833e-02  2.280888e-03 2164.273    2.610095
+151 151 46.45394  6.122814e-03 -7.870307e-03 1852.107    2.961526
+152 152 48.00413 -1.412952e-02 -2.141445e-03 2388.704    2.931305
+153 153 41.12783  4.607210e-03 -5.162541e-03 3060.487    2.483818
+154 154 37.61306  3.736738e-03 -2.035180e-02 2330.014    2.733425
+155 155 55.53886 -1.960465e-02 -3.448859e-03 2418.752    2.620911
+156 156 51.91205 -7.584038e-02 -3.988795e-03 2242.978    3.301604
+157 157 32.90404 -4.287511e-02 -7.299631e-03 2074.371    2.933379
+158 158 34.93873 -2.306705e-02  1.223197e-02 2625.999    2.560509
+159 159 58.94520  2.358736e-02  4.568845e-03 2389.795    2.678380
+160 160 39.26413  4.712009e-02  3.249450e-02 2461.111    2.366281
+161 161 37.87807 -9.283099e-03 -1.086696e-02 2072.195    3.137000
+162 162 25.30215  1.145453e-04 -1.589666e-03 2284.622    2.647416
+163 163 31.10083  6.823266e-03 -1.122163e-02 1819.607    3.756388
+164 164 49.01359  2.184282e-04 -4.884487e-03 2211.626    2.733037
+165 165 15.06546 -8.315710e-03 -6.005899e-03 2189.110    2.744874
+166 166 36.89330 -1.344601e-02 -5.772030e-03 2145.570    3.725387
+167 167 28.56279  2.129308e-02  4.833502e-03 2343.428    2.842869
+168 168 20.69189 -4.322603e-02 -1.113687e-01 2237.885    4.754760
+169 169 17.44192 -9.039395e-03  2.718298e-03 2077.595    3.144378
+170 170 41.79728  3.060141e-02 -7.194211e-03 2352.233    3.009616
+171 171 45.47208  5.265378e-03 -2.772053e-03 2741.683    2.775604
+172 172 41.90789 -1.406886e-02  4.461014e-03 2274.369    3.317178
+173 173 46.16018  2.489852e-02  1.112831e-02 2572.492    2.940143
+174 174 24.64331 -4.390597e-03  3.116525e-03 2106.338    2.874681
+175 175 24.19905 -9.332588e-02 -3.124020e-03 1914.540    4.473895
+176 176 52.86969 -2.929633e-02 -5.841123e-03 2095.053    3.121851
+177 177 43.29279 -8.254994e-02 -9.214859e-03 1817.832    3.524376
+178 178 35.69147 -4.469813e-02  2.695266e-02 1954.571    2.910820
+179 179 35.54581 -3.797365e-04 -1.603074e-02 1974.221    3.711848
+180 180 47.31826 -2.102106e-02  2.173016e-03 2282.019    2.561692
+181 181 49.37876  1.048628e-02 -4.176880e-03 2219.124    2.851813
+182 182 49.90179 -7.269228e-03  9.238265e-04 2238.277    3.047969
+183 183 38.02567  7.566730e-03  2.963529e-03 2306.866    2.763089
+184 184 41.18596  6.046295e-03 -3.752466e-03 2311.692    2.766267
+185 185 37.19643  6.824875e-03  2.141127e-02 2352.257    2.598256
+186 186 39.32784 -1.776796e-02 -1.065732e-02 2325.691    3.737915
+187 187 39.94253 -3.842119e-02  3.367143e-03 2317.105    2.818863
+188 188 44.86775  1.034234e-01  5.545952e-03 2342.890    2.236449
+189 189 24.33112 -9.515622e-02 -6.773045e-03 2235.595    4.091854
+190 190 43.86198  3.356765e-04 -5.515469e-02 2237.570    3.036980
+191 191 36.73394 -3.907836e-02 -8.535805e-03 2337.467    3.038064
+192 192 36.87978 -3.382540e-02 -1.039734e-02 2221.244    2.598462
+193 193 43.76151 -2.254559e-02 -8.905848e-03 2261.399    2.952986
+194 194 43.11678  2.107831e-02  6.506670e-03 2313.735    2.444160
+195 195 42.02486 -8.486769e-02 -2.337791e-02 2371.052    3.394344
+196 196 56.07586 -2.837945e-02  5.066926e-04 2407.479    2.452322
+197 197 51.36335 -1.079352e-02 -1.452483e-03 2352.696    2.914037
+198 198 42.88832  4.007711e-02  9.194362e-03 2338.922    2.611972
+199 199 38.66662  4.259423e-02  2.316477e-03 2336.739    2.242340
+200 200 45.96055 -1.224957e-01 -2.835400e-02 2385.342    3.345227
+201 201 38.08364 -1.157697e-02 -2.081129e-03 2418.114    2.687593
+202 202 46.09275 -1.725586e-03  7.752859e-03 2379.862    2.504994
+203 203 49.25352  3.127472e-02  7.635121e-03 2414.815    2.693871
+204 204 36.62149 -1.189748e-02 -8.608191e-03 2342.940    2.789133
+205 205 40.59582  6.156607e-02  3.939966e-03 2392.199    2.271986
+206 206 28.99743 -4.538051e-02 -1.324913e-02 2351.755    3.196601
+207 207 43.37649 -2.362470e-02  5.001978e-03 2422.790    2.777392
+208 208 45.03988 -2.538575e-02 -4.724699e-04 2479.260    2.477088
+209 209 50.96194 -4.810474e-02 -4.216239e-03 2457.352    2.696690
+210 210 48.52252 -2.033685e-02 -4.910208e-03 2442.891    2.653323
+211 211 41.84821 -1.271302e-01 -1.800128e-02 2492.519    3.167114
+212 212 48.20192  1.520342e-02 -2.395093e-03 2397.244    2.510424
+213 213 55.17941 -6.628493e-04  7.674123e-04 2497.264    2.870471
+214 214 44.01942 -1.632922e-02  9.671733e-04 2378.371    2.482371
+215 215 43.14625 -1.436612e-02 -4.248633e-03 2427.422    2.437913
+216 216 38.24280 -6.621535e-03 -4.553044e-03 2470.985    2.705050
+217 217 38.54530 -1.081839e-02  2.271195e-03 2521.262    2.601012
+218 218 39.64413 -1.249812e-01 -2.459270e-02 2443.322    2.950504
+219 219 36.22343  1.025779e-02 -1.328850e-03 2460.058    2.439211
+220 220 31.43108 -1.878282e-02  2.214106e-03 2275.236    3.084319
+221 221 51.44759  2.787275e-02  7.934846e-03 2284.946    2.681656
+222 222 41.68801 -8.541881e-02 -6.599079e-03 2333.147    3.044883
+223 223 46.65538  2.178065e-02  9.970117e-03 2340.512    2.517646
+224 224 42.63993 -2.279174e-02  6.428382e-04 2346.223    2.734558
+225 225 41.77793 -8.167205e-04  5.587628e-04 2366.430    2.651489
+226 226 48.43388 -5.024525e-02 -1.582872e-02 2344.392    2.910449
+227 227 47.10525 -5.179892e-02  4.746445e-03 2347.148    2.837694
+228 228 59.65975 -7.858226e-03 -2.911570e-03 2331.704    2.621406
+229 229 38.93403  1.171872e-02  4.564145e-04 2370.578    2.417996
+230 230 22.19287  7.609703e-02  2.746079e-02 2389.140    2.195249
+231 231 31.87483 -2.157609e-02  1.584305e-02 2399.058    2.302850
+232 232 30.89830 -1.325516e-01 -1.471912e-02 2214.314    3.500879
+233 233 54.36871 -7.492309e-03  2.893587e-03 2173.394    2.540581
+234 234 29.79490 -1.414458e-01 -1.317687e-02 2240.651    3.377851
+235 235 40.01060 -8.497142e-02 -1.920022e-02 2233.604    2.599685
+236 236 47.05827 -5.367116e-02 -9.104878e-03 2220.585    2.995526
+237 237 36.07458 -7.737609e-02 -1.081332e-02 2211.668    3.027913
+238 238 51.90852 -4.178964e-02 -3.578720e-03 2171.838    2.804563
+239 239 46.23170  1.001751e-02 -2.976701e-03 2220.223    2.377703
+240 240 41.92370 -5.967076e-02 -1.169295e-02 2310.579    2.930699
+241 241 40.92430 -5.431334e-03 -5.214240e-03 2462.912    2.873871
+242 242 46.21672 -6.717109e-02 -1.254797e-02 2494.378    2.978954
+243 243 43.74555  1.416304e-02 -3.088658e-03 2273.536    2.649873
+244 244 50.42701  7.341694e-03  2.176126e-03 2342.209    2.491125
+245 245 43.84584 -7.178985e-02 -9.710905e-03 2343.491    3.193422
+246 246 54.51922 -2.954646e-04  4.816941e-03 2252.335    2.471461
+247 247 39.18549 -3.548555e-02 -8.998272e-03 2336.293    2.644529
+248 248 50.43624 -6.724955e-03 -7.639883e-04 2527.350    2.786793
+249 249 46.99549 -2.571257e-02 -1.193515e-03 2537.743    2.739123
+250 250 50.79026 -5.186732e-03 -9.373070e-03 2504.876    2.562586
+251 251 39.17289 -5.532432e-02 -2.198360e-02 2431.410    3.894995
+252 252 46.96056 -1.649735e-02 -8.135444e-03 2485.912    2.666441
+253 253 41.31733 -3.373846e-03 -4.432445e-03 2473.132    2.564520
+254 254 35.77720  9.985579e-04 -1.152831e-02 2462.448    2.931203
+255 255 49.48955 -2.069704e-02  2.150265e-03 2542.520    2.992171
+256 256 53.11056 -2.339067e-02  3.876171e-03 2427.515    2.890361
+257 257 52.39786 -5.590462e-03  1.769381e-03 2492.877    2.612881
+258 258 50.39826  2.865729e-02  5.753351e-03 2493.594    2.418628
+259 259 52.56571  1.264232e-02  6.343189e-03 2490.118    2.339598
+260 260 46.70266 -2.187725e-02 -1.111201e-02 2488.596    2.621764
+261 261 54.65020 -4.314281e-02  1.528703e-03 2506.507    2.656349
+262 262 44.07582  4.102981e-03  1.606280e-02 2760.153    2.901734
+263 263 22.05966 -1.103362e-02  9.980784e-03 2801.709    2.917708
+264 264 55.09877  1.277063e-02 -2.779941e-04 2893.675    2.848238
+265 265 47.75294 -2.987720e-02 -2.745245e-03 2947.425    2.732063
+266 266 42.28464 -6.792070e-02 -1.083966e-02 3051.679    3.085646
+267 267 52.28641 -2.018520e-02  1.850044e-02 2782.211    3.109962
+268 268 41.13008 -1.247342e-01 -1.861438e-02 2771.435    3.384974
+269 269 49.69603  7.978122e-03 -9.566059e-04 2760.740    2.597378
+270 270 34.82486 -1.107839e-01 -1.784343e-02 2919.971    3.498430
+271 271 51.92218 -3.143948e-02 -8.617636e-05 2863.098    2.888131
+272 272 45.71450 -5.022416e-02 -9.460697e-03 2618.351    3.340490
+273 273 53.50166 -3.745390e-02 -4.181624e-03 2560.658    3.394751
+274 274 52.55303 -8.756292e-02 -1.591451e-02 2676.690    2.981840
+275 275 45.00238  6.265792e-03 -4.844079e-03 2687.621    2.706163
+276 276 61.62166 -1.273374e-02  4.100543e-03 2647.344    3.158620
+277 277 50.86059 -8.599685e-02 -1.359148e-02 2535.731    2.986200
+278 278 60.11922 -5.825651e-02 -9.037613e-04 2456.333    2.696488
+279 279 55.43522 -1.059749e-02  6.078968e-04 2511.670    2.778258
+280 280 46.66393 -2.490309e-02 -1.102966e-02 2498.123    2.977435
+281 281 55.76943 -2.201911e-02 -4.239765e-03 2454.220    2.954252
+282 282 43.69122 -3.646388e-02 -6.890511e-03 2415.564    2.800391
+283 283 45.70693 -1.907697e-02 -1.236721e-02 2508.740    2.724036
+284 284 40.80075 -2.218646e-02 -7.331187e-03 2507.200    2.787530
+285 285 52.19703 -4.401710e-02 -9.597831e-03 2474.280    2.741835
+286 286 52.95972 -3.999992e-02 -6.647753e-03 2448.677    2.935001
+287 287 47.53068  1.401968e-02  5.860538e-03 2446.162    2.724869
+288 288 51.62825 -7.626266e-04  3.142228e-03 2469.384    2.629720
+289 289 49.53789  3.750443e-03  4.332844e-03 2382.958    2.269061
+290 290 48.25598 -4.150539e-02 -9.829666e-03 2397.122    2.719658
+291 291 42.38929  5.722670e-02  1.842679e-02 2316.769    2.261357
+292 292 40.97874 -9.788176e-03 -7.667067e-03 2318.855    2.619257
+293 293 48.06423  1.037144e-02  4.145075e-03 2336.228    2.464027
+294 294 48.72758 -3.710780e-02 -1.348526e-02 2340.188    2.805628
+295 295 43.69468  3.402292e-02  9.685003e-03 2366.364    2.373890
+296 296 46.20706 -5.930274e-02 -1.178447e-02 2379.592    2.959807
+297 297 34.90854 -6.404737e-02  3.107277e-03 2413.741    2.747830
+298 298 39.17538 -6.679030e-02 -1.804451e-03 2416.613    2.577003
+299 299 48.20841  6.828790e-03  3.414021e-03 2376.088    2.542637
+300 300 50.14094 -2.878178e-02 -1.442882e-03 2364.681    2.735761
+301 301 46.01486 -8.475326e-03 -2.906414e-03 2321.759    2.512825
+302 302 44.94684 -5.391797e-02 -1.161089e-02 2332.935    2.780144
+303 303 41.23606  2.833067e-02  7.899215e-03 2337.229    2.237327
+304 304 42.57754  3.039481e-02 -6.964053e-03 2313.630    2.333131
+305 305 50.90445  9.982373e-03  2.838400e-03 2334.217    2.436544
+306 306 47.81753 -2.284929e-02 -6.289941e-03 2314.749    2.573346
+307 307 45.05361 -2.590156e-02 -4.656503e-03 2322.986    2.567763
+308 308 43.82737 -3.225432e-02 -3.984508e-03 2307.606    2.467930
+309 309 49.14459 -5.861937e-03  3.097249e-04 2216.515    2.769944
+310 310 50.37354 -7.556343e-04 -4.918832e-03 2154.658    2.655116
+311 311 61.50566  3.516734e-03  5.920471e-04 2084.561    2.798852
+312 312 44.71384 -2.127807e-02 -1.210928e-03 2286.573    2.728574
+313 313 27.81948 -1.070280e-01 -1.255985e-01 2204.689    4.726277
+314 314 48.83759 -6.542046e-02 -3.125268e-02 2286.532    3.434696
+315 315 53.34168 -3.758872e-02  8.953231e-04 2380.302    2.711476
+316 316 52.44708 -2.792277e-03  1.448362e-02 2418.764    2.476458
+317 317 42.36117 -7.173087e-02 -8.722784e-03 2399.274    3.128908
+318 318 56.21957 -5.836834e-03  4.134407e-03 2424.005    2.633233
+319 319 34.20054 -7.561360e-02  3.031202e-03 2429.530    3.906761
+320 320 36.32975  2.369896e-03  2.854541e-03 2494.789    2.578207
+321 321 42.80373  2.187489e-02  1.156268e-02 2430.106    2.350964
+322 322 33.49526  3.650995e-02  3.567154e-02 2421.781    2.156769
+323 323 36.53156 -5.597895e-03  5.033038e-03 2420.123    2.403400
+324 324 23.66455  1.103072e-01  3.714557e-02 2423.173    2.094436
+325 325 38.19867  3.468858e-02  1.358597e-02 2412.364    2.211165
+326 326 42.12838 -1.348195e-02  3.299163e-03 2360.599    2.524564
+327 327 38.34384  1.295864e-02  1.253831e-03 2383.792    2.571314
+328 328 40.32899 -1.056563e-02  2.442272e-03 2313.457    2.523165
+329 329 42.52531  4.587024e-02  2.923226e-03 2324.352    2.358032
+330 330 38.51109 -2.887489e-04  6.573820e-03 2328.447    2.416487
+331 331 53.75178 -5.147783e-02 -7.027573e-03 2124.227    3.271997
+332 332 53.63733 -7.496553e-02 -9.681841e-03 2092.234    3.089378
+333 333 34.88352 -2.045719e-02 -6.723706e-03 2281.130    2.697412
+334 334 45.57276 -7.062712e-02 -1.209801e-02 2119.129    3.152270
+335 335 32.78794 -1.374150e-02 -7.012467e-05 1939.318    3.429283
+336 336 33.59266  2.709847e-02  1.493601e-02 1793.567    2.722948
+337 337 41.58944  2.360557e-02 -1.880107e-02 1804.107    2.854074
+338 338 53.52942 -1.958244e-02  1.009632e-02 1919.744    2.637574
+339 339 39.13576 -1.174831e-02 -2.948893e-03 2184.481    2.872566
+340 340 46.24987 -6.923037e-02 -1.864361e-02 2256.062    2.753609
+341 341 50.07663 -1.898502e-03  7.273366e-03 2220.624    2.913132
+342 342 46.82977 -3.177601e-02 -2.198208e-03 2585.207    3.204868
+343 343 50.59246  3.417774e-03 -2.407188e-03 2438.800    2.808541
+344 344 46.15951  2.644968e-02  6.594821e-03 2396.305    2.437150
+345 345 24.11728 -1.155583e-01 -1.546627e-02 2289.337    3.193806
+346 346 49.16936 -7.912385e-02 -4.267062e-03 2577.096    3.242106
+347 347 39.75526 -2.225394e-02  1.010186e-02 2441.529    3.037662
+348 348 41.92702 -2.642931e-02  1.791014e-03 2375.455    2.859420
+349 349 38.98206 -3.516111e-02  2.966748e-03 2442.470    2.735578
+350 350 35.21368  2.033400e-02 -3.390223e-03 2377.151    3.203316</code></pre>
+</div>
+</div>
+</section>
+<section id="data-cubes" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="data-cubes"><span class="header-section-number">2.3</span> Data cubes</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>api_url <span class="ot">=</span> <span class="st">"https://earth-search.aws.element84.com/v1"</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>client <span class="ot">=</span> <span class="fu">stac</span>(api_url)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">collections</span>(client) <span class="sc">|&gt;</span> <span class="fu">get_request</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>###STACCollectionList
+- collections (8 item(s)):
+  - cop-dem-glo-30
+  - naip
+  - sentinel-2-l2a
+  - sentinel-2-l1c
+  - cop-dem-glo-90
+  - landsat-c2-l2
+  - sentinel-1-grd
+  - sentinel-2-c1-l2a
+- field(s): collections, links, context</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># collection ID</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>collection <span class="ot">=</span> <span class="st">"sentinel-2-l2a"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>study_mask_wgs84 <span class="ot">=</span> <span class="fu">st_transform</span>(study_mask, <span class="dv">4326</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># date range</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>time_extent <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"2020-01-01"</span>, <span class="st">"2023-12-31"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>items <span class="ot">=</span> client  <span class="sc">|&gt;</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stac_search</span>(</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">collections =</span> collection,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">intersects =</span> study_mask_wgs84, </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">datetime =</span> <span class="fu">paste0</span>(time_extent,<span class="st">"T00:00:00Z"</span>, <span class="at">collapse =</span> <span class="st">"/"</span>),</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>      <span class="at">limit =</span> <span class="dv">100</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">|&gt;</span> </span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">post_request</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">items_filter</span>(</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">filter_fn =</span> <span class="cf">function</span>(x) {x<span class="sc">$</span>properties<span class="sc">$</span><span class="st">`</span><span class="at">eo:cloud_cover</span><span class="st">`</span> <span class="sc">&lt;</span> <span class="dv">25</span>}</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="fu">items_length</span>(items)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 8</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bbox <span class="ot">=</span> study_mask <span class="sc">|&gt;</span> <span class="fu">st_bbox</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>assets <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"green"</span>,<span class="st">"blue"</span>,<span class="st">"nir"</span>,<span class="st">"scl"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>col <span class="ot">=</span> <span class="fu">stac_image_collection</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  items<span class="sc">$</span>features,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">asset_names =</span> assets</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in stac_image_collection(items$features, asset_names = assets): STAC
+asset with name 'scl' does not include eo:bands metadata and will be considered
+as a single band source</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>extent <span class="ot">=</span> <span class="fu">list</span>(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">t0 =</span> time_extent[<span class="dv">1</span>], <span class="at">t1 =</span> time_extent[<span class="dv">2</span>],</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">left =</span> bbox[<span class="st">"xmin"</span>], <span class="at">bottom =</span> bbox[<span class="st">"ymin"</span>], </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">right =</span> bbox[<span class="st">"xmax"</span>], <span class="at">top =</span> bbox[<span class="st">"ymax"</span>]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>view <span class="ot">=</span> <span class="fu">cube_view</span>(</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">srs =</span> <span class="st">"epsg:32717"</span>,  </span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">extent =</span> extent,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">dx =</span> <span class="dv">30</span>, <span class="at">dy =</span> <span class="dv">30</span>, <span class="at">dt =</span> <span class="st">"P1D"</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">aggregation =</span> <span class="st">"median"</span>,</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">resampling =</span> <span class="st">"bilinear"</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>s2_mask <span class="ot">=</span> <span class="fu">image_mask</span>(<span class="st">"scl"</span>, <span class="at">values =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">8</span>,<span class="dv">9</span>))</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="fu">raster_cube</span>(col, view)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A data cube proxy object
+
+Dimensions:
+           low         high count pixel_size chunk_size
+t   2020-01-01   2023-12-31  1461        P1D          1
+y 9556859.6369 9560909.6369   135         30        128
+x 712108.42545 715798.42545   123         30        123
+
+Bands:
+   name offset scale nodata unit
+1  blue      0     1    NaN     
+2 green      0     1    NaN     
+3   nir      0     1    NaN     
+4   red      0     1    NaN     
+5   scl      0     1    NaN     </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">raster_cube</span>(col, view) <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"green"</span>,<span class="st">"blue"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">reduce_time</span>(<span class="fu">c</span>(<span class="st">"median(red)"</span>, <span class="st">"median(green)"</span>, <span class="st">"median(blue)"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">rgb =</span> <span class="dv">3</span><span class="sc">:</span><span class="dv">1</span>, <span class="at">zlim=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1200</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">raster_cube</span>(col, view) <span class="sc">|&gt;</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_bands</span>(<span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"nir"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">apply_pixel</span>(<span class="fu">c</span>(<span class="st">"(nir-red)/(nir+red)"</span>), <span class="at">names =</span> <span class="st">"NDVI"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">zlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">nbreaks =</span> <span class="dv">10</span>,</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> RColorBrewer<span class="sc">::</span><span class="fu">brewer.pal</span>(<span class="dv">9</span>, <span class="st">"YlGn"</span>),</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">key.pos =</span> <span class="dv">1</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-R-gdalcubes" class="csl-entry" role="listitem">
+Appel, Marius. 2023. <em>Gdalcubes: Earth Observation Data Cubes from Satellite Image Collections</em>. <a href="https://github.com/appelmar/gdalcubes">https://github.com/appelmar/gdalcubes</a>.
+</div>
+<div id="ref-gdalcubes2019" class="csl-entry" role="listitem">
+Appel, Marius, and Edzer Pebesma. 2019. <span>“On-Demand Processing of Data Cubes from Satellite Image Collections with the Gdalcubes Library.”</span> <em>Data</em> 4 (3). <a href="https://www.mdpi.com/2306-5729/4/3/92">https://www.mdpi.com/2306-5729/4/3/92</a>.
+</div>
+<div id="ref-gdalcubes2021" class="csl-entry" role="listitem">
+Appel, Marius, Edzer Pebesma, and Matthias Mohr. 2021. <span>“Cloud-Based Processing of Satellite Image Collections in r Using STAC, COGs, and on-Demand Data Cubes.”</span> <a href="https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html">https://r-spatial.org/r/2021/04/23/cloud-based-cubes.html</a>.
+</div>
+<div id="ref-R-terra" class="csl-entry" role="listitem">
+Hijmans, Robert J. 2024. <em>Terra: Spatial Data Analysis</em>. <a href="https://rspatial.org/">https://rspatial.org/</a>.
+</div>
+<div id="ref-sf2018" class="csl-entry" role="listitem">
+Pebesma, Edzer. 2018. <span>“<span class="nocase">Simple Features for R: Standardized Support for Spatial Vector Data</span>.”</span> <em><span>The R Journal</span></em> 10 (1): 439–46. <a href="https://doi.org/10.32614/RJ-2018-009">https://doi.org/10.32614/RJ-2018-009</a>.
+</div>
+<div id="ref-R-sf" class="csl-entry" role="listitem">
+———. 2023. <em>Sf: Simple Features for r</em>. <a href="https://r-spatial.github.io/sf/">https://r-spatial.github.io/sf/</a>.
+</div>
+<div id="ref-sf2023" class="csl-entry" role="listitem">
+Pebesma, Edzer, and Roger Bivand. 2023. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
+</div>
+<div id="ref-R-base" class="csl-entry" role="listitem">
+R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-R-rstac" class="csl-entry" role="listitem">
+Simoes, Rolf, Felipe Carvalho, and Brazil Data Cube Team. 2023. <em>Rstac: Client Library for SpatioTemporal Asset Catalog</em>. <a href="https://brazil-data-cube.github.io/rstac/">https://brazil-data-cube.github.io/rstac/</a>.
+</div>
+<div id="ref-rstac2021" class="csl-entry" role="listitem">
+Simoes, Rolf, Felipe Souza, Matheus Zaglia, Gilberto Ribeiro Queiroz, Rafael Santos, and Karine Ferreira. 2021. <span>“Rstac: An r Package to Access Spatiotemporal Asset Catalog Satellite Imagery.”</span> In <em>2021 IEEE International Geoscience and Remote Sensing Symposium IGARSS</em>, 7674–77. <a href="https://doi.org/10.1109/IGARSS47720.2021.9553518">https://doi.org/10.1109/IGARSS47720.2021.9553518</a>.
+</div>
+<div id="ref-tmap2018" class="csl-entry" role="listitem">
+Tennekes, Martijn. 2018. <span>“<span class="nocase">tmap</span>: Thematic Maps in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 84 (6): 1–39. <a href="https://doi.org/10.18637/jss.v084.i06">https://doi.org/10.18637/jss.v084.i06</a>.
+</div>
+<div id="ref-R-tmap" class="csl-entry" role="listitem">
+———. 2023. <em>Tmap: Thematic Maps</em>. <a href="https://github.com/r-tmap/tmap">https://github.com/r-tmap/tmap</a>.
+</div>
+<div id="ref-R-dplyr" class="csl-entry" role="listitem">
+Wickham, Hadley, Romain François, Lionel Henry, Kirill Müller, and Davis Vaughan. 2023. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://dplyr.tidyverse.org">https://dplyr.tidyverse.org</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./vector.html" class="pagination-link" aria-label="Vector data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Vector data</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./resources.html" class="pagination-link" aria-label="Further resources">
+        <span class="nav-page-text">Further resources</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

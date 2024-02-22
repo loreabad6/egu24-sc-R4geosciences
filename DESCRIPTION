@@ -1,0 +1,21 @@
+Package: egu2024
+Type: Book
+Title: Materials for EGU 2024 Short Course Introduction to R for the Geosciences
+Version: 0.0.0.9000
+Authors@R: 
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph).
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports: 
+  sf,
+  spDataLarge,
+  stars,
+  terra,
+  tidyverse,
+  tmap
+Remotes:
+  Nowosad/spDataLarge
+  r-tmap/tmap@v4

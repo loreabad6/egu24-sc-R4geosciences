@@ -1,0 +1,53 @@
+project:
+  type: book
+  execute-dir: project
+
+book:
+  title: "Introduction to R for the Geosciences"
+  subtitle: "EGU24 Short Course"
+  author:
+    - name: Lorena Abad
+      affiliations:
+      - name: University of Salzburg
+      email: lorena.abad@plus.ac.at
+      orcid: 0000-0003-0554-734X
+    - name: Jakub Nowosad
+      affiliations:
+      - name: Adam Mickiewicz University
+      email: nowosad.jakub@gmail.com
+      orcid: 0000-0002-1057-3721
+    - name: Ewa Grabska-Szwagrzyk
+      affiliations:
+      - name: Jagiellonian University
+      email: ewa2.grabska@uj.edu.pl
+      orcid: 0000-0001-6783-3355
+    - name: Edzer Pebesma
+      affiliations:
+      - name: University of Münster
+      email: edzer.pebesma@uni-muenster.de
+      orcid: 0000-0001-8049-7069
+  date: "today"
+  chapters:
+    - index.qmd
+    - vector.qmd
+    - raster.qmd
+    - resources.qmd
+    - references.qmd
+
+bibliography: 
+    - packages.bib
+    #- "https://api.citedrive.com/bib/f67c224b-6fcd-4870-87fc-67374abf013e/references.bib?x=eyJpZCI6ICJmNjdjMjI0Yi02ZmNkLTQ4NzAtODdmYy02NzM3NGFiZjAxM2UiLCAidXNlciI6ICIyNTY4IiwgInNpZ25hdHVyZSI6ICJiZmJhYzUyOThkY2E0ZWI4MjZjNjVkMDQ5MDc2N2I0OGVmMjQ1ZmI4ODMwYmVhYjllYmIwNmJiMTY0MWVlYThmIn0=/bibliography.bib"
+
+nocite: |
+  @*
+knitr:
+  opts_chunk:
+    fig-crop: true
+    dev.args:
+      bg: transparent
+    
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: [cosmo, html-styling/theme-dark.scss]

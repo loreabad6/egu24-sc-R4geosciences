@@ -1,0 +1,23 @@
+# Further resources {.unnumbered}
+
+## Books:
+
+- [Spatial Data Science with Applications in R](https://r-spatial.org/book/) by @Pebesma_2023
+- [Geocomputation with R](https://r.geocompx.org/) by @lovelace_geocomputation_2019
+
+## Blogs & Articles:
+
+- [R libraries for geoscience](https://couttsgeodata.netlify.app/post/2021-02-28-r_geoscience/) by Danny Coutts
+- "Potential use of R-statistical programming in the field of geoscience" by @Bishwal_2017 in *International Conference for Convergence of Technology (I2CT)*.
+
+## Bridges to GIS software:
+
+- GRASS with [{rgrass}](https://rsbivand.github.io/rgrass/) by @Bivand_rgrass
+- SAGA with [{RSAGA}](https://github.com/r-spatial/RSAGA) by @Brenning_rsaga
+- QGIS with [{qgisprocess}](https://r-spatial.github.io/qgisprocess/) by @Dunnington_qgisprocess
+- ArcGIS with [{arcgisbinding}](https://r.esri.com/) by @Aydin_2024
+
+<!-- ## Datasets: -->
+
+<!-- - [Multitemporal landslide inventories](https://github.com/kushanavbhuyan/Large-scale-multi-spatiotemporal-landslide-mapping/tree/main/Multi-Temporal%20Inventories) from @Bhuyan_2023. -->
+<!-- - [Warwick rock samples data](https://github.com/paleolimbot/geoscidata) -->

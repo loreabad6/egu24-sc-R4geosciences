@@ -1,0 +1,18 @@
+# Vector data
+
+
+
+## Read data into R
+
+## Projections
+
+## Geometrical operations
+
+## Plot spatial data
+
+
+```{r}
+#| include: false
+# automatically create a bib database for R packages
+knitr::write_bib(c(.packages()), 'packages.bib')
+```
