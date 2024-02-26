@@ -1,0 +1,172 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction to R for the Geosciences",
+    "section": "",
+    "text": "About\nThese are the materials for the short course “Introduction to R for the Geosciences” at EGU 2024.\nThis course is based on the FOSS4G 2022 workshop “Getting started with R and R-spatial” by Nicolas Roelandt and Jakub Nowosad.",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "index.html#abstract",
+    "href": "index.html#abstract",
+    "title": "Introduction to R for the Geosciences",
+    "section": "Abstract",
+    "text": "Abstract\nR is a free, open-source programming language popularly used for data science, statistical analysis, and visualization. Spatial data analysis has been strongly supported by the R community, that provides tools for data reading, writing and downloading, and for spatial processing, visualizing and modelling. The R-Spatial package ecosystem relies on common libraries for geospatial analysis such as GDAL, GEOS, and PROJ. In this workshop, we will introduce participants to spatial data analysis in R. For this, there will be demonstrations of key R packages like {sf}, {stars}, {terra} for vector and raster data processing. We will also focus on spatial data visualization using the {tmap} package. We will focus on datasets strongly used by the Geoscience community, including satellite imagery.",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "index.html#schedule",
+    "href": "index.html#schedule",
+    "title": "Introduction to R for the Geosciences",
+    "section": "Schedule",
+    "text": "Schedule",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "index.html#pre-requisites",
+    "href": "index.html#pre-requisites",
+    "title": "Introduction to R for the Geosciences",
+    "section": "Pre-requisites",
+    "text": "Pre-requisites\n\nR installation\nR packages\n\nPlease run those commands into the R console:\n\n# Install remote package from CRAN Repo\ninstall.packages(remotes)\n\n# Install workshop and its dependencies\nremotes::install_github(\"loreabad6/egu24-sc-R4geosciences\")\n\n\n\n\n\nAllaire, JJ. 2023. Quarto: R Interface to Quarto Markdown Publishing System. https://github.com/quarto-dev/quarto-r.\n\n\nXie, Yihui. 2014. “Knitr: A Comprehensive Tool for Reproducible Research in R.” In Implementing Reproducible Computational Research, edited by Victoria Stodden, Friedrich Leisch, and Roger D. Peng. Chapman; Hall/CRC.\n\n\n———. 2015. Dynamic Documents with R and Knitr. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. https://yihui.org/knitr/.\n\n\n———. 2023. Knitr: A General-Purpose Package for Dynamic Report Generation in r. https://yihui.org/knitr/.",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "rspatial.html",
+    "href": "rspatial.html",
+    "title": "1  Intro to R-spatial",
+    "section": "",
+    "text": "Add brief introduction to R-spatial ecosystem\n\n\n\n\nAllaire, JJ. 2023. Quarto: R Interface to Quarto Markdown Publishing System. https://github.com/quarto-dev/quarto-r.\n\n\nXie, Yihui. 2014. “Knitr: A Comprehensive Tool for Reproducible Research in R.” In Implementing Reproducible Computational Research, edited by Victoria Stodden, Friedrich Leisch, and Roger D. Peng. Chapman; Hall/CRC.\n\n\n———. 2015. Dynamic Documents with R and Knitr. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. https://yihui.org/knitr/.\n\n\n———. 2023. Knitr: A General-Purpose Package for Dynamic Report Generation in r. https://yihui.org/knitr/.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Intro to R-spatial</span>"
+    ]
+  },
+  {
+    "objectID": "vector.html",
+    "href": "vector.html",
+    "title": "2  Vector data",
+    "section": "",
+    "text": "2.1 Read data into R\nrivers = read_sf(\"data/nz-river-centrelines-topo-1500k.gpkg\")\nrivers\n\nSimple feature collection with 7894 features and 0 fields\nGeometry type: MULTILINESTRING\nDimension:     XY\nBounding box:  xmin: 1090841 ymin: 4753217 xmax: 2085682 ymax: 6190544\nProjected CRS: NZGD2000 / New Zealand Transverse Mercator 2000\n# A tibble: 7,894 × 1\n                                                                            geom\n                                                           &lt;MULTILINESTRING [m]&gt;\n 1 ((1188893 4876720, 1188961 4876789, 1189209 4876888, 1189352 4877037, 118941…\n 2 ((1212357 4985134, 1212190 4985017, 1212190 4984899, 1212240 4984833, 121222…\n 3        ((1793234 5835222, 1793051 5835188, 1793001 5835221, 1792804 5835245))\n 4 ((1237766 4958688, 1237833 4958555, 1237861 4958499, 1237950 4958321, 123818…\n 5 ((1479132 5112613, 1479112 5112458, 1479143 5112127, 1479307 5111749, 147945…\n 6 ((1331799 4889014, 1331743 4889153, 1331644 4889637, 1331644 4889652, 133164…\n 7 ((1421067 5030500, 1421156 5030431, 1421280 5030411, 1421412 5030354, 142154…\n 8 ((1137668 4888410, 1137186 4888320, 1136813 4888447, 1136732 4888437, 113655…\n 9 ((1460473 5142519, 1460661 5141978, 1460657 5141736, 1460724 5141519, 146086…\n10 ((1473259 5181908, 1473317 5181722, 1473317 5181472, 1473417 5181388, 147353…\n# ℹ 7,884 more rows",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Vector data</span>"
+    ]
+  },
+  {
+    "objectID": "vector.html#projections-and-transformations",
+    "href": "vector.html#projections-and-transformations",
+    "title": "2  Vector data",
+    "section": "2.2 Projections and transformations",
+    "text": "2.2 Projections and transformations\n\nst_crs(rivers)\n\nCoordinate Reference System:\n  User input: NZGD2000 / New Zealand Transverse Mercator 2000 \n  wkt:\nPROJCRS[\"NZGD2000 / New Zealand Transverse Mercator 2000\",\n    BASEGEOGCRS[\"NZGD2000\",\n        DATUM[\"New Zealand Geodetic Datum 2000\",\n            ELLIPSOID[\"GRS 1980\",6378137,298.257222101,\n                LENGTHUNIT[\"metre\",1]]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433]],\n        ID[\"EPSG\",4167]],\n    CONVERSION[\"New Zealand Transverse Mercator 2000\",\n        METHOD[\"Transverse Mercator\",\n            ID[\"EPSG\",9807]],\n        PARAMETER[\"Latitude of natural origin\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",173,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",0.9996,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",1600000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",10000000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"northing (N)\",north,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1]],\n        AXIS[\"easting (E)\",east,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1]],\n    USAGE[\n        SCOPE[\"Engineering survey, topographic mapping.\"],\n        AREA[\"New Zealand - North Island, South Island, Stewart Island - onshore.\"],\n        BBOX[-47.33,166.37,-34.1,178.63]],\n    ID[\"EPSG\",2193]]\n\nst_transform(rivers, 4326)\n\nSimple feature collection with 7894 features and 0 fields\nGeometry type: MULTILINESTRING\nDimension:     XY\nBounding box:  xmin: 166.4349 ymin: -47.24322 xmax: 178.5062 ymax: -34.42658\nGeodetic CRS:  WGS 84\n# A tibble: 7,894 × 1\n                                                                            geom\n *                                                         &lt;MULTILINESTRING [°]&gt;\n 1 ((167.6771 -46.139, 167.678 -46.13843, 167.6813 -46.13769, 167.6833 -46.1364…\n 2 ((168.0661 -45.1806, 168.0639 -45.18155, 168.0638 -45.1826, 168.0644 -45.183…\n 3 ((175.1892 -37.60982, 175.1872 -37.61016, 175.1866 -37.60987, 175.1843 -37.6…\n 4 ((168.3691 -45.43137, 168.3698 -45.4326, 168.3701 -45.43312, 168.3711 -45.43…\n 5 ((171.4891 -44.12969, 171.4889 -44.13108, 171.4892 -44.13407, 171.4911 -44.1…\n 6 ((169.53 -46.09975, 169.5294 -46.09848, 169.5283 -46.09409, 169.5284 -46.093…\n 7 ((170.7354 -44.85646, 170.7365 -44.8571, 170.738 -44.85731, 170.7397 -44.857…\n 8 ((167.0287 -46.00162, 167.0224 -46.00211, 167.0177 -46.00072, 167.0167 -46.0…\n 9 ((171.2639 -43.85723, 171.2661 -43.86213, 171.266 -43.86431, 171.2667 -43.86…\n10 ((171.4322 -43.50501, 171.4328 -43.5067, 171.4328 -43.50895, 171.434 -43.509…\n# ℹ 7,884 more rows\n\n\npar(mar = c(0,0,2,0))\nrivers |&gt; plot(main = \"EPSG: 2193\")\n# WGS 84 / Equal Earth Greenwich\nst_transform(rivers, 8857) |&gt; plot(main = \"EPSG: 8857\")",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Vector data</span>"
+    ]
+  },
+  {
+    "objectID": "vector.html#geometrical-operations",
+    "href": "vector.html#geometrical-operations",
+    "title": "2  Vector data",
+    "section": "2.3 Geometrical operations",
+    "text": "2.3 Geometrical operations\n\nrivers[\"length\"] = st_length(rivers)\nrivers\n\nSimple feature collection with 7894 features and 1 field\nGeometry type: MULTILINESTRING\nDimension:     XY\nBounding box:  xmin: 1090841 ymin: 4753217 xmax: 2085682 ymax: 6190544\nProjected CRS: NZGD2000 / New Zealand Transverse Mercator 2000\n# A tibble: 7,894 × 2\n                                                                     geom length\n                                                    &lt;MULTILINESTRING [m]&gt;    [m]\n 1 ((1188893 4876720, 1188961 4876789, 1189209 4876888, 1189352 4877037,… 73029.\n 2 ((1212357 4985134, 1212190 4985017, 1212190 4984899, 1212240 4984833,… 45755.\n 3 ((1793234 5835222, 1793051 5835188, 1793001 5835221, 1792804 5835245))   445.\n 4 ((1237766 4958688, 1237833 4958555, 1237861 4958499, 1237950 4958321,… 32311.\n 5 ((1479132 5112613, 1479112 5112458, 1479143 5112127, 1479307 5111749,…  1391.\n 6 ((1331799 4889014, 1331743 4889153, 1331644 4889637, 1331644 4889652,… 61151.\n 7 ((1421067 5030500, 1421156 5030431, 1421280 5030411, 1421412 5030354,… 36612.\n 8 ((1137668 4888410, 1137186 4888320, 1136813 4888447, 1136732 4888437,…  1622.\n 9 ((1460473 5142519, 1460661 5141978, 1460657 5141736, 1460724 5141519,…  2582.\n10 ((1473259 5181908, 1473317 5181722, 1473317 5181472, 1473417 5181388,… 53171.\n# ℹ 7,884 more rows\n\n\n\ndata(\"nz\", package = \"spData\")\nnz\n\nSimple feature collection with 16 features and 6 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 1090144 ymin: 4748537 xmax: 2089533 ymax: 6191874\nProjected CRS: NZGD2000 / New Zealand Transverse Mercator 2000\nFirst 10 features:\n                Name Island Land_area Population Median_income Sex_ratio\n1          Northland  North 12500.561     175500         23400 0.9424532\n2           Auckland  North  4941.573    1657200         29600 0.9442858\n3            Waikato  North 23900.036     460100         27900 0.9520500\n4      Bay of Plenty  North 12071.145     299900         26200 0.9280391\n5           Gisborne  North  8385.827      48500         24400 0.9349734\n6        Hawke's Bay  North 14137.524     164000         26100 0.9238375\n7           Taranaki  North  7254.480     118000         29100 0.9569363\n8  Manawatu-Wanganui  North 22220.608     234500         25000 0.9387734\n9         Wellington  North  8048.553     513900         32700 0.9335524\n10        West Coast  South 23245.456      32400         26900 1.0139072\n                             geom\n1  MULTIPOLYGON (((1745493 600...\n2  MULTIPOLYGON (((1803822 590...\n3  MULTIPOLYGON (((1860345 585...\n4  MULTIPOLYGON (((2049387 583...\n5  MULTIPOLYGON (((2024489 567...\n6  MULTIPOLYGON (((2024489 567...\n7  MULTIPOLYGON (((1740438 571...\n8  MULTIPOLYGON (((1866732 566...\n9  MULTIPOLYGON (((1881590 548...\n10 MULTIPOLYGON (((1557042 531...\n\nsummary(nz)\n\n     Name              Island            Land_area         Population     \n Length:16          Length:16          Min.   :  422.2   Min.   :  32400  \n Class :character   Class :character   1st Qu.: 8301.5   1st Qu.:  51325  \n Mode  :character   Mode  :character   Median :12285.9   Median : 169750  \n                                       Mean   :16505.5   Mean   : 299200  \n                                       3rd Qu.:23409.1   3rd Qu.: 339950  \n                                       Max.   :44504.5   Max.   :1657200  \n Median_income     Sex_ratio                 geom   \n Min.   :23400   Min.   :0.9238   MULTIPOLYGON :16  \n 1st Qu.:26000   1st Qu.:0.9346   epsg:2193    : 0  \n Median :27050   Median :0.9477   +proj=tmer...: 0  \n Mean   :27375   Mean   :0.9518                     \n 3rd Qu.:29200   3rd Qu.:0.9613                     \n Max.   :32700   Max.   :1.0139                     \n\n\n\n(gisborne = nz[nz$Name == \"Gisborne\", ])\n\nSimple feature collection with 1 feature and 6 fields\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: 1959096 ymin: 5674920 xmax: 2089533 ymax: 5833212\nProjected CRS: NZGD2000 / New Zealand Transverse Mercator 2000\n      Name Island Land_area Population Median_income Sex_ratio\n5 Gisborne  North  8385.827      48500         24400 0.9349734\n                            geom\n5 MULTIPOLYGON (((2024489 567...\n\n\n\nrivers |&gt; st_intersection(gisborne)\n\nError in geos_op2_geom(\"intersection\", x, y, ...): st_crs(x) == st_crs(y) is not TRUE\n\n\n\ngisborne = st_transform(gisborne, st_crs(rivers))\nrivers |&gt; st_intersection(gisborne)\n\nWarning: attribute variables are assumed to be spatially constant throughout\nall geometries\n\n\nSimple feature collection with 286 features and 7 fields\nGeometry type: GEOMETRY\nDimension:     XY\nBounding box:  xmin: 1964161 ymin: 5676307 xmax: 2085682 ymax: 5829474\nProjected CRS: NZGD2000 / New Zealand Transverse Mercator 2000\n# A tibble: 286 × 8\n   length Name     Island Land_area Population Median_income Sex_ratio\n *    [m] &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;         &lt;int&gt;     &lt;dbl&gt;\n 1 25580. Gisborne North      8386.      48500         24400     0.935\n 2 55146. Gisborne North      8386.      48500         24400     0.935\n 3 30760. Gisborne North      8386.      48500         24400     0.935\n 4 28458. Gisborne North      8386.      48500         24400     0.935\n 5 29961. Gisborne North      8386.      48500         24400     0.935\n 6 25386. Gisborne North      8386.      48500         24400     0.935\n 7 28251. Gisborne North      8386.      48500         24400     0.935\n 8 28476. Gisborne North      8386.      48500         24400     0.935\n 9 29663. Gisborne North      8386.      48500         24400     0.935\n10  9291. Gisborne North      8386.      48500         24400     0.935\n# ℹ 276 more rows\n# ℹ 1 more variable: geom &lt;LINESTRING [m]&gt;\n\nrivers |&gt; st_join(gisborne, left = FALSE, join = st_intersects)\n\nSimple feature collection with 286 features and 7 fields\nGeometry type: MULTILINESTRING\nDimension:     XY\nBounding box:  xmin: 1964161 ymin: 5665081 xmax: 2085682 ymax: 5830551\nProjected CRS: NZGD2000 / New Zealand Transverse Mercator 2000\n# A tibble: 286 × 8\n                                   geom length Name  Island Land_area Population\n *                &lt;MULTILINESTRING [m]&gt;    [m] &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;\n 1 ((2020380 5682629, 2020497 5682630,… 25580. Gisb… North      8386.      48500\n 2 ((2047236 5739047, 2047119 5738963,… 55146. Gisb… North      8386.      48500\n 3 ((1992989 5756684, 1992939 5756835,… 30760. Gisb… North      8386.      48500\n 4 ((2009450 5761922, 2009383 5761988,… 28458. Gisb… North      8386.      48500\n 5 ((2059935 5763492, 2059842 5763462,… 29961. Gisb… North      8386.      48500\n 6 ((2027788 5774462, 2027789 5774211,… 25386. Gisb… North      8386.      48500\n 7 ((2035023 5793818, 2035107 5793618,… 28251. Gisb… North      8386.      48500\n 8 ((2064446 5774410, 2064479 5774661,… 28476. Gisb… North      8386.      48500\n 9 ((2083085 5804913, 2082742 5805001,… 29663. Gisb… North      8386.      48500\n10 ((1998917 5702907, 1998927 5702908,…  9291. Gisb… North      8386.      48500\n# ℹ 276 more rows\n# ℹ 2 more variables: Median_income &lt;int&gt;, Sex_ratio &lt;dbl&gt;\n\nrivers |&gt; st_join(gisborne, left = FALSE, join = st_within)\n\nSimple feature collection with 248 features and 7 fields\nGeometry type: MULTILINESTRING\nDimension:     XY\nBounding box:  xmin: 1967989 ymin: 5687240 xmax: 2085682 ymax: 5829458\nProjected CRS: NZGD2000 / New Zealand Transverse Mercator 2000\n# A tibble: 248 × 8\n                                   geom length Name  Island Land_area Population\n *                &lt;MULTILINESTRING [m]&gt;    [m] &lt;chr&gt; &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;\n 1 ((2047236 5739047, 2047119 5738963,… 55146. Gisb… North      8386.      48500\n 2 ((2009450 5761922, 2009383 5761988,… 28458. Gisb… North      8386.      48500\n 3 ((2059935 5763492, 2059842 5763462,… 29961. Gisb… North      8386.      48500\n 4 ((2027788 5774462, 2027789 5774211,… 25386. Gisb… North      8386.      48500\n 5 ((2064446 5774410, 2064479 5774661,… 28476. Gisb… North      8386.      48500\n 6 ((1998917 5702907, 1998927 5702908,…  9291. Gisb… North      8386.      48500\n 7 ((2001680 5712195, 2001746 5712112,…  8166. Gisb… North      8386.      48500\n 8 ((2068319 5787066, 2067617 5787365,…  6851. Gisb… North      8386.      48500\n 9 ((2058857 5789186, 2058757 5789287,…  8277. Gisb… North      8386.      48500\n10 ((2070487 5798783, 2070335 5799153,…  8971. Gisb… North      8386.      48500\n# ℹ 238 more rows\n# ℹ 2 more variables: Median_income &lt;int&gt;, Sex_ratio &lt;dbl&gt;\n\nrivers |&gt; st_filter(gisborne, .predicate = st_within)\n\nSimple feature collection with 248 features and 1 field\nGeometry type: MULTILINESTRING\nDimension:     XY\nBounding box:  xmin: 1967989 ymin: 5687240 xmax: 2085682 ymax: 5829458\nProjected CRS: NZGD2000 / New Zealand Transverse Mercator 2000\n# A tibble: 248 × 2\n                                                                     geom length\n *                                                  &lt;MULTILINESTRING [m]&gt;    [m]\n 1 ((2047236 5739047, 2047119 5738963, 2047119 5738846, 2047002 5738779,… 55146.\n 2 ((2009450 5761922, 2009383 5761988, 2009365 5762322, 2009332 5762372,… 28458.\n 3 ((2059935 5763492, 2059842 5763462, 2059015 5763608, 2059005 5763649,… 29961.\n 4 ((2027788 5774462, 2027789 5774211, 2027839 5774111, 2027956 5773978,… 25386.\n 5 ((2064446 5774410, 2064479 5774661, 2064680 5774745, 2064713 5774812,… 28476.\n 6 ((1998917 5702907, 1998927 5702908, 1999151 5702924, 1999234 5702834,…  9291.\n 7 ((2001680 5712195, 2001746 5712112, 2001747 5711995, 2001663 5711761,…  8166.\n 8 ((2068319 5787066, 2067617 5787365, 2067366 5787398, 2067249 5787482,…  6851.\n 9 ((2058857 5789186, 2058757 5789287, 2058590 5789253, 2058556 5789286,…  8277.\n10 ((2070487 5798783, 2070335 5799153, 2070277 5799363, 2070312 5799653,…  8971.\n# ℹ 238 more rows\n\n\nMention DE-9IM.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Vector data</span>"
+    ]
+  },
+  {
+    "objectID": "vector.html#plot-spatial-data",
+    "href": "vector.html#plot-spatial-data",
+    "title": "2  Vector data",
+    "section": "2.4 Plot spatial data",
+    "text": "2.4 Plot spatial data\n\nplot(nz)\n\n\n\n\n\n\n\n\n\nggplot(nz) +\n  geom_sf(aes(fill = Population))\n\n\n\n\n\n\n\n\n\ntm_shape(nz) +\n  tm_fill(\"Name\") +\n  tm_shape(rivers) +\n  tm_lines(col = \"white\", lwd = 0.7) +\n  tm_scalebar()\n\n\n\n\n\n\n\n\n\n\n\n\nPebesma, Edzer. 2018. “Simple Features for R: Standardized Support for Spatial Vector Data.” The R Journal 10 (1): 439–46. https://doi.org/10.32614/RJ-2018-009.\n\n\n———. 2023. Sf: Simple Features for r. https://r-spatial.github.io/sf/.\n\n\nPebesma, Edzer, and Roger Bivand. 2023. Spatial Data Science: With applications in R. Chapman and Hall/CRC. https://doi.org/10.1201/9780429459016.\n\n\nR Core Team. 2023. R: A Language and Environment for Statistical Computing. Vienna, Austria: R Foundation for Statistical Computing. https://www.R-project.org/.\n\n\nTennekes, Martijn. 2018. “tmap: Thematic Maps in R.” Journal of Statistical Software 84 (6): 1–39. https://doi.org/10.18637/jss.v084.i06.\n\n\n———. 2023. Tmap: Thematic Maps. https://github.com/r-tmap/tmap.\n\n\nWickham, Hadley. 2016. Ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://ggplot2.tidyverse.org.\n\n\nWickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington, and Teun van den Brand. 2024. Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics. https://ggplot2.tidyverse.org.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Vector data</span>"
+    ]
+  },
+  {
+    "objectID": "raster.html",
+    "href": "raster.html",
+    "title": "3  Raster data",
+    "section": "",
+    "text": "3.1 Read data into R\ndata(\"lsl\", \"study_mask\", package = \"spDataLarge\")\nlandslides = st_as_sf(\n  lsl,\n  coords = c(\"x\", \"y\"), \n  crs = \"EPSG:32717\"\n)\nterrain = rast(system.file(\"raster/ta.tif\", package = \"spDataLarge\"))\nterrain = mask(terrain, study_mask)\ntm_shape(terrain) +\n  tm_raster(\n    col.scale = tm_scale_continuous(midpoint = NA),\n    col.legend = tm_legend(orientation = \"landscape\")\n  ) +\n  tm_facets_hstack() +\n  tm_shape(landslides) +\n  tm_dots()",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Raster data</span>"
+    ]
+  },
+  {
+    "objectID": "raster.html#raster-vector-operations",
+    "href": "raster.html#raster-vector-operations",
+    "title": "3  Raster data",
+    "section": "3.2 Raster-vector operations",
+    "text": "3.2 Raster-vector operations\n\nhead(extract(terrain, landslides))\n\n  ID    slope        cplan        cprof     elev log10_carea\n1  1 33.75185  0.023180449  0.003193061 2422.810    2.784319\n2  2 39.40821 -0.038638908 -0.017187813 2051.771    4.146012\n3  3 37.45409 -0.013329108  0.009671087 1957.832    3.643556\n4  4 31.49607  0.040931452  0.005888638 1968.621    2.268703\n5  5 44.07456  0.009686948  0.005149810 3007.774    3.003426\n6  6 29.85981 -0.009047707 -0.005738329 1736.887    3.174073\n\n\n\n3.2.1 Predictions\n\nfit = glm(lslpts ~ slope + cplan + cprof + elev + log10_carea,\n          family = binomial(), data = landslides)\n\n\npred = predict(terrain, model = fit, type = \"response\")\n\n\n\nCode\ntm_shape(pred) +\n  tm_raster(\n    col.scale = tm_scale_continuous(midpoint = NA, values = \"-viridis\"),\n    col.legend = tm_legend(\n      title = \"\",\n      position = tm_pos_in(\"left\", \"bottom\"),\n      width = 10,\n      frame = FALSE,\n      orientation = \"landscape\"\n    )\n  ) +\n  tm_title(\"Landslide susceptibility\")",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Raster data</span>"
+    ]
+  },
+  {
+    "objectID": "raster.html#data-cubes",
+    "href": "raster.html#data-cubes",
+    "title": "3  Raster data",
+    "section": "3.3 Data cubes",
+    "text": "3.3 Data cubes\n\ntif = system.file(\"tif/L7_ETMs.tif\", package = \"stars\")\nl7 = read_stars(tif)\nplot(l7, axes = TRUE)\n\n\n\n\n\n\n\n\n\nl7\n\nstars object with 3 dimensions and 1 attribute\nattribute(s):\n             Min. 1st Qu. Median     Mean 3rd Qu. Max.\nL7_ETMs.tif     1      54     69 68.91242      86  255\ndimension(s):\n     from  to  offset delta                     refsys point x/y\nx       1 349  288776  28.5 SIRGAS 2000 / UTM zone 25S FALSE [x]\ny       1 352 9120761 -28.5 SIRGAS 2000 / UTM zone 25S FALSE [y]\nband    1   6      NA    NA                         NA    NA    \n\nl7[,,,3:4]\n\nstars object with 3 dimensions and 1 attribute\nattribute(s):\n             Min. 1st Qu. Median     Mean 3rd Qu. Max.\nL7_ETMs.tif     9      50     63 61.79714      76  255\ndimension(s):\n     from  to  offset delta                     refsys point x/y\nx       1 349  288776  28.5 SIRGAS 2000 / UTM zone 25S FALSE [x]\ny       1 352 9120761 -28.5 SIRGAS 2000 / UTM zone 25S FALSE [y]\nband    3   4      NA    NA                         NA    NA    \n\n\nplot(l7, rgb = c(3,2,1), reset = FALSE, main = \"RGB\")    # rgb\nplot(l7, rgb = c(4,3,2), main = \"False colour (NIR-G-B)\") # false colour\n\n\n\n\n\n\n\n\n\n\n\nfn_ndvi = function(red,nir) (nir-red)/(nir+red)\nndvi = st_apply(l7[,,,3:4], 1:2, fn_ndvi)\n\n\ntm_shape(ndvi) +\n  tm_raster(col.scale = tm_scale_continuous(values = \"c4a.pu_gn_div\", midpoint = 0))\n\n\n\n\n\n\n\n\n\nprecipitation = system.file(\"nc/test_stageiv_xyt.nc\", package = \"stars\") |&gt;\n    read_stars()\nprecipitation\n\nstars object with 3 dimensions and 1 attribute\nattribute(s):\n                             Min. 1st Qu. Median     Mean 3rd Qu.   Max.\ntest_stageiv_xyt.nc [kg/m^2]    0       0   0.75 4.143009    4.63 163.75\ndimension(s):\n     from  to                  offset   delta         refsys\nx       1  87                      NA      NA WGS 84 (CRS84)\ny       1 118                      NA      NA WGS 84 (CRS84)\ntime    1  23 2018-09-13 19:00:00 UTC 1 hours        POSIXct\n                                 values x/y\nx    [87x118] -80.61 [°],...,-74.88 [°] [x]\ny      [87x118] 32.44 [°],...,37.62 [°] [y]\ntime                               NULL    \ncurvilinear grid\n\n\n\nnc = system.file(\"gpkg/nc.gpkg\", package = \"sf\") |&gt; \n  read_sf() |&gt; \n  st_transform(st_crs(precipitation))\n  \nnc_outline = nc |&gt; \n  st_geometry() |&gt; \n  st_union()\n\n\nggplot() +\n  geom_stars(data = precipitation[,,,1:12]) +\n  scale_fill_viridis_c(\"Precipitation\") +\n  geom_sf(data = nc_outline, fill = NA, color = \"red\") +\n  facet_wrap(\"time\", ncol = 6) +\n  theme_bw() +\n  theme(legend.position = \"bottom\")\n\n\n\n\n\n\n\n\n\nprecipitation_nc = aggregate(precipitation, by = nc, FUN = max)\n\n\nplot(precipitation_nc, max.plot = 23, border = 'grey', lwd = .5)\n\n\n\n\n\n\n\n\n\nindex_max = function(x) ifelse(all(is.na(x)), NA, which.max(x))\nprecipitation_max = st_apply(precipitation_nc, \"geom\", index_max)\n\n\nprecipitation_max$when = st_get_dimension_values(precipitation_nc, \"time\")[precipitation_max$index_max]\n\nplot(precipitation_max[\"when\"], key.pos = 1, main = \"time of maximum precipitation\")\n\n\n\n\n\n\n\n\n\n\n\n\nHijmans, Robert J. 2024. Terra: Spatial Data Analysis. https://rspatial.org/.\n\n\nPebesma, Edzer. 2018. “Simple Features for R: Standardized Support for Spatial Vector Data.” The R Journal 10 (1): 439–46. https://doi.org/10.32614/RJ-2018-009.\n\n\n———. 2023a. Sf: Simple Features for r. https://r-spatial.github.io/sf/.\n\n\n———. 2023b. Stars: Spatiotemporal Arrays, Raster and Vector Data Cubes. https://r-spatial.github.io/stars/.\n\n\nPebesma, Edzer, and Roger Bivand. 2023a. Spatial Data Science: With applications in R. Chapman and Hall/CRC. https://doi.org/10.1201/9780429459016.\n\n\n———. 2023b. Spatial Data Science: With applications in R. London: Chapman; Hall/CRC. https://doi.org/10.1201/9780429459016.\n\n\nR Core Team. 2023. R: A Language and Environment for Statistical Computing. Vienna, Austria: R Foundation for Statistical Computing. https://www.R-project.org/.\n\n\nTennekes, Martijn. 2018. “tmap: Thematic Maps in R.” Journal of Statistical Software 84 (6): 1–39. https://doi.org/10.18637/jss.v084.i06.\n\n\n———. 2023. Tmap: Thematic Maps. https://github.com/r-tmap/tmap.\n\n\nWickham, Hadley. 2016. Ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://ggplot2.tidyverse.org.\n\n\nWickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington, and Teun van den Brand. 2024. Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics. https://ggplot2.tidyverse.org.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Raster data</span>"
+    ]
+  },
+  {
+    "objectID": "resources.html",
+    "href": "resources.html",
+    "title": "Further resources",
+    "section": "",
+    "text": "Books:",
+    "crumbs": [
+      "Further resources"
+    ]
+  },
+  {
+    "objectID": "resources.html#books",
+    "href": "resources.html#books",
+    "title": "Further resources",
+    "section": "",
+    "text": "Spatial Data Science with Applications in R by (Pebesma_2023?)\nGeocomputation with R by (lovelace_geocomputation_2019?)",
+    "crumbs": [
+      "Further resources"
+    ]
+  },
+  {
+    "objectID": "resources.html#blogs-articles",
+    "href": "resources.html#blogs-articles",
+    "title": "Further resources",
+    "section": "Blogs & Articles:",
+    "text": "Blogs & Articles:\n\nR libraries for geoscience by Danny Coutts\n“Potential use of R-statistical programming in the field of geoscience” by (Bishwal_2017?) in International Conference for Convergence of Technology (I2CT).",
+    "crumbs": [
+      "Further resources"
+    ]
+  },
+  {
+    "objectID": "resources.html#bridges-to-gis-software",
+    "href": "resources.html#bridges-to-gis-software",
+    "title": "Further resources",
+    "section": "Bridges to GIS software:",
+    "text": "Bridges to GIS software:\n\nGRASS with {rgrass} by (Bivand_rgrass?)\nSAGA with {RSAGA} by (Brenning_rsaga?)\nQGIS with {qgisprocess} by (Dunnington_qgisprocess?)\nArcGIS with {arcgisbinding} by (Aydin_2024?)\n\n\n\n\n\nHijmans, Robert J. 2024. Terra: Spatial Data Analysis. https://rspatial.org/.\n\n\nPebesma, Edzer. 2018. “Simple Features for R: Standardized Support for Spatial Vector Data.” The R Journal 10 (1): 439–46. https://doi.org/10.32614/RJ-2018-009.\n\n\n———. 2023a. Sf: Simple Features for r. https://r-spatial.github.io/sf/.\n\n\n———. 2023b. Stars: Spatiotemporal Arrays, Raster and Vector Data Cubes. https://r-spatial.github.io/stars/.\n\n\nPebesma, Edzer, and Roger Bivand. 2023a. Spatial Data Science: With applications in R. Chapman and Hall/CRC. https://doi.org/10.1201/9780429459016.\n\n\n———. 2023b. Spatial Data Science: With applications in R. London: Chapman; Hall/CRC. https://doi.org/10.1201/9780429459016.\n\n\nR Core Team. 2023. R: A Language and Environment for Statistical Computing. Vienna, Austria: R Foundation for Statistical Computing. https://www.R-project.org/.\n\n\nTennekes, Martijn. 2018. “tmap: Thematic Maps in R.” Journal of Statistical Software 84 (6): 1–39. https://doi.org/10.18637/jss.v084.i06.\n\n\n———. 2023. Tmap: Thematic Maps. https://github.com/r-tmap/tmap.\n\n\nWickham, Hadley. 2016. Ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York. https://ggplot2.tidyverse.org.\n\n\nWickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey Dunnington, and Teun van den Brand. 2024. Ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics. https://ggplot2.tidyverse.org.",
+    "crumbs": [
+      "Further resources"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Hijmans, Robert J. 2024. Terra: Spatial Data Analysis. https://rspatial.org/.\n\n\nPebesma, Edzer. 2018. “Simple Features for R:\nStandardized Support for Spatial Vector Data.”\nThe R Journal 10 (1): 439–46. https://doi.org/10.32614/RJ-2018-009.\n\n\n———. 2023a. Sf: Simple Features for r. https://r-spatial.github.io/sf/.\n\n\n———. 2023b. Stars: Spatiotemporal Arrays, Raster and Vector Data\nCubes. https://r-spatial.github.io/stars/.\n\n\nPebesma, Edzer, and Roger Bivand. 2023a. Spatial Data Science: With applications in R.\nChapman and Hall/CRC. https://doi.org/10.1201/9780429459016.\n\n\n———. 2023b. Spatial Data Science: With\napplications in R. London: Chapman; Hall/CRC. https://doi.org/10.1201/9780429459016.\n\n\nR Core Team. 2023. R: A Language and Environment for Statistical\nComputing. Vienna, Austria: R Foundation for Statistical Computing.\nhttps://www.R-project.org/.\n\n\nTennekes, Martijn. 2018. “tmap:\nThematic Maps in R.” Journal of Statistical\nSoftware 84 (6): 1–39. https://doi.org/10.18637/jss.v084.i06.\n\n\n———. 2023. Tmap: Thematic Maps. https://github.com/r-tmap/tmap.\n\n\nWickham, Hadley. 2016. Ggplot2: Elegant Graphics for Data\nAnalysis. Springer-Verlag New York. https://ggplot2.tidyverse.org.\n\n\nWickham, Hadley, Winston Chang, Lionel Henry, Thomas Lin Pedersen,\nKohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani, Dewey\nDunnington, and Teun van den Brand. 2024. Ggplot2: Create Elegant\nData Visualisations Using the Grammar of Graphics. https://ggplot2.tidyverse.org.",
+    "crumbs": [
+      "References"
+    ]
+  }
+]

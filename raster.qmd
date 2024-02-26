@@ -1,12 +1,16 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
 # Raster data
 
 ```{r}
 #| label: libraries
 #| warning: false
-library(dplyr)
-library(gdalcubes)
-library(rstac)
+library(ggplot2)
 library(sf)
+library(stars)
 library(terra)
 library(tmap)
 ```
@@ -43,85 +47,108 @@ tm_shape(terrain) +
 ## Raster-vector operations
 
 ```{r}
-extract(terrain, landslides)
+head(extract(terrain, landslides))
+```
+
+### Predictions
+
+```{r}
+fit = glm(lslpts ~ slope + cplan + cprof + elev + log10_carea,
+          family = binomial(), data = landslides)
+```
+
+```{r}
+pred = predict(terrain, model = fit, type = "response")
+```
+
+```{r}
+#| code-fold: true
+tm_shape(pred) +
+  tm_raster(
+    col.scale = tm_scale_continuous(midpoint = NA, values = "-viridis"),
+    col.legend = tm_legend(
+      title = "",
+      position = tm_pos_in("left", "bottom"),
+      width = 10,
+      frame = FALSE,
+      orientation = "landscape"
+    )
+  ) +
+  tm_title("Landslide susceptibility")
 ```
 
 ## Data cubes
 
 ```{r}
-api_url = "https://earth-search.aws.element84.com/v1"
-client = stac(api_url)
-collections(client) |> get_request()
+tif = system.file("tif/L7_ETMs.tif", package = "stars")
+l7 = read_stars(tif)
+plot(l7, axes = TRUE)
 ```
 
 ```{r}
-# collection ID
-collection = "sentinel-2-l2a"
-study_mask_wgs84 = st_transform(study_mask, 4326)
-# date range
-time_extent = c("2020-01-01", "2023-12-31")
+l7
+l7[,,,3:4]
 ```
 
 ```{r}
-items = client  |> 
-  stac_search(
-      collections = collection,
-      intersects = study_mask_wgs84, 
-      datetime = paste0(time_extent,"T00:00:00Z", collapse = "/"),
-      limit = 100
-    ) |> 
-  post_request() |> 
-  items_filter(
-    filter_fn = function(x) {x$properties$`eo:cloud_cover` < 25}
-  )
-items_length(items)
+#| layout-ncol: 2
+plot(l7, rgb = c(3,2,1), reset = FALSE, main = "RGB")    # rgb
+plot(l7, rgb = c(4,3,2), main = "False colour (NIR-G-B)") # false colour
 ```
 
 ```{r}
-bbox = study_mask |> st_bbox()
+fn_ndvi = function(red,nir) (nir-red)/(nir+red)
+ndvi = st_apply(l7[,,,3:4], 1:2, fn_ndvi)
 ```
 
 ```{r}
-assets = c("red","green","blue","nir","scl")
-col = stac_image_collection(
-  items$features,
-  asset_names = assets
-)
-extent = list(
-  t0 = time_extent[1], t1 = time_extent[2],
-  left = bbox["xmin"], bottom = bbox["ymin"], 
-  right = bbox["xmax"], top = bbox["ymax"]
-)
-view = cube_view(
-  srs = "epsg:32717",  
-  extent = extent,
-  dx = 30, dy = 30, dt = "P1D",
-  aggregation = "median",
-  resampling = "bilinear"
-)
-s2_mask = image_mask("scl", values = c(3,8,9))
-raster_cube(col, view)
+tm_shape(ndvi) +
+  tm_raster(col.scale = tm_scale_continuous(values = "c4a.pu_gn_div", midpoint = 0))
 ```
 
 ```{r}
-#| eval: false
-raster_cube(col, view) |> 
-  select_bands(c("red","green","blue")) |> 
-  reduce_time(c("median(red)", "median(green)", "median(blue)")) |>
-  plot(rgb = 3:1, zlim=c(0, 1200)) 
+precipitation = system.file("nc/test_stageiv_xyt.nc", package = "stars") |>
+    read_stars()
+precipitation
 ```
 
 ```{r}
-#| eval: false
-raster_cube(col, view) |> 
-  select_bands(c("red","nir")) |>
-  apply_pixel(c("(nir-red)/(nir+red)"), names = "NDVI") |>
-  plot(
-    zlim = c(0, 1),
-    nbreaks = 10,
-    col = RColorBrewer::brewer.pal(9, "YlGn"),
-    key.pos = 1
-  )
+nc = system.file("gpkg/nc.gpkg", package = "sf") |> 
+  read_sf() |> 
+  st_transform(st_crs(precipitation))
+  
+nc_outline = nc |> 
+  st_geometry() |> 
+  st_union()
+```
+
+```{r}
+ggplot() +
+  geom_stars(data = precipitation[,,,1:12]) +
+  scale_fill_viridis_c("Precipitation") +
+  geom_sf(data = nc_outline, fill = NA, color = "red") +
+  facet_wrap("time", ncol = 6) +
+  theme_bw() +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+precipitation_nc = aggregate(precipitation, by = nc, FUN = max)
+```
+
+```{r}
+plot(precipitation_nc, max.plot = 23, border = 'grey', lwd = .5)
+```
+
+```{r}
+index_max = function(x) ifelse(all(is.na(x)), NA, which.max(x))
+precipitation_max = st_apply(precipitation_nc, "geom", index_max)
+```
+
+```{r}
+precipitation_max$when = st_get_dimension_values(precipitation_nc, "time")[precipitation_max$index_max]
+
+plot(precipitation_max["when"], key.pos = 1, main = "time of maximum precipitation")
 ```
 
 ```{r}

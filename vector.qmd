@@ -1,15 +1,85 @@
 # Vector data
 
-
+```{r}
+#| label: libraries
+#| warning: false
+library(ggplot2)
+library(sf)
+library(tmap)
+```
 
 ## Read data into R
 
-## Projections
+```{r}
+rivers = read_sf("data/nz-river-centrelines-topo-1500k.gpkg")
+rivers
+```
+
+## Projections and transformations
+
+```{r}
+st_crs(rivers)
+st_transform(rivers, 4326)
+```
+
+```{r}
+#| layout-ncol: 2
+par(mar = c(0,0,2,0))
+rivers |> plot(main = "EPSG: 2193")
+# WGS 84 / Equal Earth Greenwich
+st_transform(rivers, 8857) |> plot(main = "EPSG: 8857")
+```
 
 ## Geometrical operations
 
+```{r}
+rivers["length"] = st_length(rivers)
+rivers
+```
+
+```{r}
+data("nz", package = "spData")
+nz
+summary(nz)
+```
+
+```{r}
+(gisborne = nz[nz$Name == "Gisborne", ])
+```
+
+```{r}
+#| error: true
+rivers |> st_intersection(gisborne)
+```
+
+```{r}
+gisborne = st_transform(gisborne, st_crs(rivers))
+rivers |> st_intersection(gisborne)
+rivers |> st_join(gisborne, left = FALSE, join = st_intersects)
+rivers |> st_join(gisborne, left = FALSE, join = st_within)
+rivers |> st_filter(gisborne, .predicate = st_within)
+```
+
+Mention [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
+
 ## Plot spatial data
 
+```{r}
+plot(nz)
+```
+
+```{r}
+ggplot(nz) +
+  geom_sf(aes(fill = Population))
+```
+
+```{r}
+tm_shape(nz) +
+  tm_fill("Name") +
+  tm_shape(rivers) +
+  tm_lines(col = "white", lwd = 0.7) +
+  tm_scalebar()
+```
 
 ```{r}
 #| include: false

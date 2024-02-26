@@ -16,8 +16,3 @@
 - SAGA with [{RSAGA}](https://github.com/r-spatial/RSAGA) by @Brenning_rsaga
 - QGIS with [{qgisprocess}](https://r-spatial.github.io/qgisprocess/) by @Dunnington_qgisprocess
 - ArcGIS with [{arcgisbinding}](https://r.esri.com/) by @Aydin_2024
-
-<!-- ## Datasets: -->
-
-<!-- - [Multitemporal landslide inventories](https://github.com/kushanavbhuyan/Large-scale-multi-spatiotemporal-landslide-mapping/tree/main/Multi-Temporal%20Inventories) from @Bhuyan_2023. -->
-<!-- - [Warwick rock samples data](https://github.com/paleolimbot/geoscidata) -->
