@@ -4,6 +4,7 @@
 #| label: libraries
 #| warning: false
 library(ggplot2)
+library(mapview)
 library(sf)
 library(tmap)
 ```
@@ -60,18 +61,39 @@ rivers |> st_join(gisborne, left = FALSE, join = st_within)
 rivers |> st_filter(gisborne, .predicate = st_within)
 ```
 
+```{r}
+#| layout-ncol: 2
+#| code-fold: true
+par(mar = c(0,0,2,0))
+int = rivers |> st_filter(gisborne, .predicate = st_intersects)
+with = rivers |> st_filter(gisborne, .predicate = st_within)
+plot(gisborne$geom, border = "red", col = NA, main = "st_intersects")
+plot(rivers$geom, col = "grey90", alpha = 0.5, add = TRUE)
+plot(int$geom, col = "blue", add = TRUE)
+
+plot(gisborne$geom, border = "red", col = NA, main = "st_within")
+plot(rivers$geom, col = "grey90", alpha = 0.5, add = TRUE)
+plot(with$geom, col = "blue", add = TRUE)
+```
+
 Mention [DE-9IM](https://en.wikipedia.org/wiki/DE-9IM).
 
 ## Plot spatial data
+
+### Base R
 
 ```{r}
 plot(nz)
 ```
 
+### ggplot2
+
 ```{r}
 ggplot(nz) +
   geom_sf(aes(fill = Population))
 ```
+
+### tmap v.4
 
 ```{r}
 tm_shape(nz) +
@@ -79,6 +101,12 @@ tm_shape(nz) +
   tm_shape(rivers) +
   tm_lines(col = "white", lwd = 0.7) +
   tm_scalebar()
+```
+
+### mapview
+
+```{r}
+mapview(nz, zcol = "Median_income")
 ```
 
 ```{r}

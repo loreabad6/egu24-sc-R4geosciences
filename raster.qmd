@@ -1,8 +1,3 @@
----
-output: html_document
-editor_options: 
-  chunk_output_type: console
----
 # Raster data
 
 ```{r}
@@ -13,6 +8,7 @@ library(sf)
 library(stars)
 library(terra)
 library(tmap)
+library(units)
 ```
 
 ## Read data into R
@@ -47,7 +43,7 @@ tm_shape(terrain) +
 ## Raster-vector operations
 
 ```{r}
-head(extract(terrain, landslides))
+head(terra::extract(terrain, landslides))
 ```
 
 ### Predictions
@@ -79,6 +75,8 @@ tm_shape(pred) +
 
 ## Data cubes
 
+### Satellite imagery
+
 ```{r}
 tif = system.file("tif/L7_ETMs.tif", package = "stars")
 l7 = read_stars(tif)
@@ -96,6 +94,8 @@ plot(l7, rgb = c(3,2,1), reset = FALSE, main = "RGB")    # rgb
 plot(l7, rgb = c(4,3,2), main = "False colour (NIR-G-B)") # false colour
 ```
 
+### Applying functions
+
 ```{r}
 fn_ndvi = function(red,nir) (nir-red)/(nir+red)
 ndvi = st_apply(l7[,,,3:4], 1:2, fn_ndvi)
@@ -105,6 +105,8 @@ ndvi = st_apply(l7[,,,3:4], 1:2, fn_ndvi)
 tm_shape(ndvi) +
   tm_raster(col.scale = tm_scale_continuous(values = "c4a.pu_gn_div", midpoint = 0))
 ```
+
+### Climate data
 
 ```{r}
 precipitation = system.file("nc/test_stageiv_xyt.nc", package = "stars") |>
@@ -123,21 +125,44 @@ nc_outline = nc |>
 ```
 
 ```{r}
+#| fig-width: 10
+#| fig-height: 6
 ggplot() +
   geom_stars(data = precipitation[,,,1:12]) +
   scale_fill_viridis_c("Precipitation") +
   geom_sf(data = nc_outline, fill = NA, color = "red") +
-  facet_wrap("time", ncol = 6) +
+  facet_wrap("time", ncol = 4) +
   theme_bw() +
   theme(legend.position = "bottom")
 ```
+
+### Time series and aggregations
 
 ```{r}
 precipitation_nc = aggregate(precipitation, by = nc, FUN = max)
 ```
 
 ```{r}
-plot(precipitation_nc, max.plot = 23, border = 'grey', lwd = .5)
+#| fig-width: 8
+#| fig-height: 7
+plot(precipitation_nc, max.plot = 23, border = 'grey', lwd = 0.5, mfrow = c(5,5))
+```
+
+```{r}
+#| code-fold: true
+#| fig-width: 10
+#| fig-height: 9
+precipitation_nc |> st_as_sf(long = TRUE) |>
+  st_join(nc) |> 
+  ggplot() + 
+  aes(
+    x = as.POSIXct(time),
+    y = test_stageiv_xyt.nc
+  ) + 
+  geom_point() + geom_line() +
+  scale_x_datetime(date_breaks = "12 hours", date_labels = "%H:%M") +
+  theme(legend.position = "none") +
+  facet_wrap(~NAME)
 ```
 
 ```{r}
@@ -146,7 +171,10 @@ precipitation_max = st_apply(precipitation_nc, "geom", index_max)
 ```
 
 ```{r}
-precipitation_max$when = st_get_dimension_values(precipitation_nc, "time")[precipitation_max$index_max]
+#| fig-width: 10
+#| fig-height: 5
+precipitation_max$when = st_get_dimension_values(
+  precipitation_nc, "time")[precipitation_max$index_max]
 
 plot(precipitation_max["when"], key.pos = 1, main = "time of maximum precipitation")
 ```

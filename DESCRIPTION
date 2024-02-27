@@ -10,12 +10,14 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 Imports: 
+  ggplot2,
+  mapview,
   sf,
   spDataLarge,
   stars,
   terra,
-  tidyverse,
-  tmap
+  tmap,
+  units
 Remotes:
   Nowosad/spDataLarge
   r-tmap/tmap@v4
