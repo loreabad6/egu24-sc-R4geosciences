@@ -3,12 +3,12 @@
 ```{r}
 #| label: libraries
 #| warning: false
-library(ggplot2)
-library(sf)
-library(stars)
-library(terra)
-library(tmap)
-library(units)
+library(sf)       # vector spatial data classes and functions
+library(terra)    # raster spatial data classes and functions
+library(tmap)     # noninteractive and interactive maps
+library(stars)    # spatiotemporal arrays classes and functions
+library(ggplot2)  # non-spatial and spatial plotting
+library(units)    # units conversions
 ```
 
 ## Read data into R
@@ -90,6 +90,7 @@ l7[,,,3:4]
 
 ```{r}
 #| layout-ncol: 2
+#| fig-height: 7
 plot(l7, rgb = c(3,2,1), reset = FALSE, main = "RGB")    # rgb
 plot(l7, rgb = c(4,3,2), main = "False colour (NIR-G-B)") # false colour
 ```
@@ -103,7 +104,7 @@ ndvi = st_apply(l7[,,,3:4], 1:2, fn_ndvi)
 
 ```{r}
 tm_shape(ndvi) +
-  tm_raster(col.scale = tm_scale_continuous(values = "c4a.pu_gn_div", midpoint = 0))
+  tm_raster(col.scale = tm_scale_continuous(values = "prgn", midpoint = 0))
 ```
 
 ### Climate data
@@ -118,7 +119,9 @@ precipitation
 nc = system.file("gpkg/nc.gpkg", package = "sf") |> 
   read_sf() |> 
   st_transform(st_crs(precipitation))
-  
+```
+
+```{r}
 nc_outline = nc |> 
   st_geometry() |> 
   st_union()
@@ -126,7 +129,7 @@ nc_outline = nc |>
 
 ```{r}
 #| fig-width: 10
-#| fig-height: 6
+#| fig-height: 7
 ggplot() +
   geom_stars(data = precipitation[,,,1:12]) +
   scale_fill_viridis_c("Precipitation") +
@@ -145,13 +148,15 @@ precipitation_nc = aggregate(precipitation, by = nc, FUN = max)
 ```{r}
 #| fig-width: 8
 #| fig-height: 7
-plot(precipitation_nc, max.plot = 23, border = 'grey', lwd = 0.5, mfrow = c(5,5))
+plot(precipitation_nc, max.plot = 23, border = "grey", 
+     lwd = 0.5, mfrow = c(5,5))
 ```
 
 ```{r}
 #| code-fold: true
 #| fig-width: 10
 #| fig-height: 9
+#| warning: false
 precipitation_nc |> st_as_sf(long = TRUE) |>
   st_join(nc) |> 
   ggplot() + 
@@ -162,6 +167,7 @@ precipitation_nc |> st_as_sf(long = TRUE) |>
   geom_point() + geom_line() +
   scale_x_datetime(date_breaks = "12 hours", date_labels = "%H:%M") +
   theme(legend.position = "none") +
+  labs(x = "Time", y = "Precipitation (mm)"
   facet_wrap(~NAME)
 ```
 
@@ -171,16 +177,19 @@ precipitation_max = st_apply(precipitation_nc, "geom", index_max)
 ```
 
 ```{r}
-#| fig-width: 10
-#| fig-height: 5
 precipitation_max$when = st_get_dimension_values(
   precipitation_nc, "time")[precipitation_max$index_max]
+```
 
-plot(precipitation_max["when"], key.pos = 1, main = "time of maximum precipitation")
+```{r}
+#| fig-width: 10
+#| fig-height: 5
+plot(precipitation_max["when"], key.pos = 1, 
+     main = "time of maximum precipitation")
 ```
 
 ```{r}
 #| include: false
 # automatically create a bib database for R packages
-knitr::write_bib(c(.packages()), 'packages.bib')
+knitr::write_bib(c(.packages()), "packages.bib")
 ```
