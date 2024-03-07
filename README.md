@@ -1,8 +1,8 @@
 These are the materials for the [short course "Introduction to R for the Geosciences" at EGU 2024](https://meetingorganizer.copernicus.org/EGU24/session/49442).
 
-**When and where?** Wednesday, April 17, 19h00-20h00 - **Room N1**
+**When and where?** Wednesday, April 17, 19:00-20:00, **Room N1**
 
-This course is based on the [FOSS4G 2022 workshop "Getting started with R and R-spatial"](https://bakaniko.github.io/foss4g2022-getting-started-rspatial/) by Nicolas Roelandt and Jakub Nowosad.
+> *This course is based on the [FOSS4G 2022 workshop "Getting started with R and R-spatial"](https://bakaniko.github.io/foss4g2022-getting-started-rspatial/) by Nicolas Roelandt and Jakub Nowosad.*
 
 ## Abstract
 
@@ -19,16 +19,16 @@ R is a free, open-source programming language popularly used for data science, s
 
 ## Pre-requisites
 
-1. R installation
+### R installation
 
 A working installation of R (follow [CRAN recommendations](https://cran.r-project.org/) for your set-up).
 
-2. R packages
+### R packages
 
-Please run those commands into the R console:
+Please run those commands inside the R console:
 
 ```r
-# Install remote package from CRAN Repo
+# Install the remotes package from CRAN Repo
 install.packages(remotes)
 
 # Install workshop and its dependencies

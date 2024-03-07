@@ -3,10 +3,10 @@
 ```{r}
 #| label: libraries
 #| warning: false
-library(ggplot2)
-library(mapview)
-library(sf)
-library(tmap)
+library(sf)       # vector spatial data classes and functions
+library(ggplot2)  # non-spatial and spatial plotting
+library(tmap)     # noninteractive and interactive maps
+library(mapview)  # quick interactive maps
 ```
 
 ## Read data into R
@@ -20,11 +20,12 @@ rivers
 
 ```{r}
 st_crs(rivers)
-st_transform(rivers, 4326)
+st_transform(rivers, "EPSG:4326")
 ```
 
 ```{r}
 #| layout-ncol: 2
+#| fig-height: 7
 par(mar = c(0,0,2,0))
 rivers |> plot(main = "EPSG: 2193")
 # WGS 84 / Equal Earth Greenwich
@@ -46,6 +47,13 @@ summary(nz)
 
 ```{r}
 (gisborne = nz[nz$Name == "Gisborne", ])
+```
+
+```{r}
+#| layout-ncol: 2
+#| fig-height: 7
+plot(nz)
+plot(gisborne)
 ```
 
 ```{r}
@@ -112,5 +120,5 @@ mapview(nz, zcol = "Median_income")
 ```{r}
 #| include: false
 # automatically create a bib database for R packages
-knitr::write_bib(c(.packages()), 'packages.bib')
+knitr::write_bib(c(.packages()), "packages.bib")
 ```
