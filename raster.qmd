@@ -167,7 +167,7 @@ precipitation_nc |> st_as_sf(long = TRUE) |>
   geom_point() + geom_line() +
   scale_x_datetime(date_breaks = "12 hours", date_labels = "%H:%M") +
   theme(legend.position = "none") +
-  labs(x = "Time", y = "Precipitation (mm)"
+  labs(x = "Time", y = "Precipitation (mm)") +
   facet_wrap(~NAME)
 ```
 

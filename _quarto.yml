@@ -35,6 +35,7 @@ book:
     - raster.qmd
     - resources.qmd
     - references.qmd
+  repo-url: "https://github.com/loreabad6/egu24-sc-R4geosciences"
 
 bibliography: 
     - packages.bib
@@ -46,6 +47,7 @@ knitr:
   opts_chunk:
     classes: styled-output
     fig-crop: true
+    tidy.opts: { width.cutoff: 80 }
     # dev.args:
       # bg: transparent
     
