@@ -1,5 +1,12 @@
 # Raster data
 
+As geoscientists, it is very likely that the majority of data we work with is in raster format.
+In this section, we will look at how to read raster data into R, how to perform raster/vector operations and basic usage of data cubes.
+
+We need the packages below, where `stars` [@R-stars] and `terra` [@R-terra] are the workforces to handle raster datasets in R.
+
+We load `sf` for raster/vector interaction, `ggplot2`, `tmap` and `units` for visualisation.
+
 ```{r}
 #| label: libraries
 #| warning: false
@@ -11,7 +18,15 @@ library(ggplot2)  # non-spatial and spatial plotting
 library(units)    # units conversions
 ```
 
-## Read data into R
+## Raster-vector operations
+
+We use here datasets from the `spDataLarge` package. 
+Similar to `spData` this is a data package.
+The data consists of terrain derivatives and a set of landslide locations in Ecuador.
+The data is used for landslide susceptibility assessment.
+
+We call two vector datasets, `lsl` and `study_mask` first.
+We convert `lsl` into an sf object with `sf::st_as_sf()`.
 
 ```{r}
 data("lsl", "study_mask", package = "spDataLarge")
@@ -20,9 +35,27 @@ landslides = st_as_sf(
   coords = c("x", "y"), 
   crs = "EPSG:32717"
 )
+```
+
+As for the raster data, we use `terra::rast()` in this case. 
+We call the data from its location on file for this using `system.file()`.
+
+```{r}
 terrain = rast(system.file("raster/ta.tif", package = "spDataLarge"))
+terrain
+```
+
+### Masking 
+
+Now, the first operation we apply to this raster data is a mask. 
+We use the `study_mask` object we loaded above to crop our data to a polygon.
+
+```{r}
 terrain = mask(terrain, study_mask)
 ```
+
+Let's take a first glance of our data using `tmap`.
+Here we plot the terrain derivatives and the landslide points in separate subplots.
 
 ```{r}
 #| warning: false
@@ -40,18 +73,32 @@ tm_shape(terrain) +
   tm_dots() 
 ```
 
-## Raster-vector operations
+
+### Extraction
+
+Another common operation is to extract raster values at point locations. 
+We can easily do this using `terra::extract()`.
 
 ```{r}
 head(terra::extract(terrain, landslides))
 ```
 
+We did not save the result of this since the landslides object already has the corresponding columns.
+
+```{r}
+landslides
+```
+
 ### Predictions
 
+Once we have extracted the data from the terrain derivatives at the landslide point locations, 
+we can proceed to create a generalized linear model (GLM)
 ```{r}
 fit = glm(lslpts ~ slope + cplan + cprof + elev + log10_carea,
           family = binomial(), data = landslides)
 ```
+
+And next we can use the `terra::predict()` function to apply the model to our terrain data.
 
 ```{r}
 pred = predict(terrain, model = fit, type = "response")
@@ -72,6 +119,11 @@ tm_shape(pred) +
   ) +
   tm_title("Landslide susceptibility")
 ```
+
+::: {.callout-tip}
+# Statistical learning
+![](https://r.geocompx.org/images/cover.png){width=25} For the full example on landslide susceptibility, visit the [Statistical learning chapter](https://r.geocompx.org/spatial-cv.html) in Geocomputation with R.
+:::
 
 ## Data cubes
 
