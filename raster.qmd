@@ -127,7 +127,20 @@ tm_shape(pred) +
 
 ## Data cubes
 
+Data cubes are data structures that have become popular to organise and analyse raster data in particular.
+You may have heard of Earth observation (EO) data cubes. 
+This are usually data structures that organise satellite imagery and other type of EO data in cubes with multiple dimensions, most specifically the x/y coordinates, time, and bands.
+
+
+::: {.callout-tip}
+# Data ubes
+![](https://r-spatial.org/book/images/cover.jpg){width=25} Learn more about data cubes in the [Data cubes chapter](https://r-spatial.org/book/06-Cubes.html) in Spatial Data Science.
+:::
+
 ### Satellite imagery
+
+In R, the `stars` package is designed to handle spatiotemporal arrays. 
+We take a look at their example data, a Landsat-7 scene, read into R using `stars::read_stars()`.
 
 ```{r}
 tif = system.file("tif/L7_ETMs.tif", package = "stars")
@@ -135,10 +148,15 @@ l7 = read_stars(tif)
 plot(l7, axes = TRUE)
 ```
 
+The quick plot above automatically creates subplots of the third dimension of the data, which is the `band` dimension.
+We can subset this dimension using the `[` operator.
+
 ```{r}
 l7
 l7[,,,3:4]
 ```
+
+And we can create RGB plots with the plot method of stars using the `rgb` parameter to corresponding bands.
 
 ```{r}
 #| layout-ncol: 2
@@ -149,14 +167,26 @@ plot(l7, rgb = c(4,3,2), main = "False colour (NIR-G-B)") # false colour
 
 ### Applying functions
 
+We can also apply functions over dimensions. 
+For example, here we create a function to calculate the NDVI.
+This function takes two arguments, the red and nir bands.
+We then subset the cube with dimensions `3:4`, followed by the dimensions on which this function is applied to and finally the function itself.
+
 ```{r}
 fn_ndvi = function(red,nir) (nir-red)/(nir+red)
 ndvi = st_apply(l7[,,,3:4], 1:2, fn_ndvi)
 ```
 
+Let's take a look at the result with `tmap`.
+
 ```{r}
 tm_shape(ndvi) +
-  tm_raster(col.scale = tm_scale_continuous(values = "prgn", midpoint = 0))
+  tm_raster(
+    col.scale = tm_scale_continuous(
+      values = "prgn",
+      midpoint = 0
+    )
+  )
 ```
 
 ### Climate data

@@ -120,7 +120,7 @@ div.csl-indent {
 <link rel="stylesheet" href="html-styling/style.css">
 </head>
 
-<body class="nav-sidebar floating slimcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -221,7 +221,7 @@ div.csl-indent {
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -251,7 +251,7 @@ div.csl-indent {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)  <span class="co"># non-spatial and spatial plotting</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(units)    <span class="co"># units conversions</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<section id="raster-vector-operations" class="level2 page-columns page-full" data-number="3.1">
+<section id="raster-vector-operations" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="raster-vector-operations"><span class="header-section-number">3.1</span> Raster-vector operations</h2>
 <p>We use here datasets from the <code>spDataLarge</code> package. Similar to <code>spData</code> this is a data package. The data consists of terrain derivatives and a set of landslide locations in Ecuador. The data is used for landslide susceptibility assessment.</p>
 <p>We call two vector datasets, <code>lsl</code> and <code>study_mask</code> first. We convert <code>lsl</code> into an sf object with <code>sf::st_as_sf()</code>.</p>
@@ -350,7 +350,7 @@ First 10 features:
 </div>
 </div>
 </section>
-<section id="predictions" class="level3 page-columns page-full" data-number="3.1.3">
+<section id="predictions" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="predictions"><span class="header-section-number">3.1.3</span> Predictions</h3>
 <p>Once we have extracted the data from the terrain derivatives at the landslide point locations, we can proceed to create a generalized linear model (GLM)</p>
 <div class="cell styled-output">
@@ -381,8 +381,6 @@ First 10 features:
 <p><img src="raster_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-
-<div class="no-row-height column-margin column-container"><div class="">
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -396,12 +394,27 @@ Statistical learning
 <p><img src="https://r.geocompx.org/images/cover.png" class="img-fluid" width="25"> For the full example on landslide susceptibility, visit the <a href="https://r.geocompx.org/spatial-cv.html">Statistical learning chapter</a> in Geocomputation with R.</p>
 </div>
 </div>
-</div></div></section>
+</section>
 </section>
 <section id="data-cubes" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="data-cubes"><span class="header-section-number">3.2</span> Data cubes</h2>
+<p>Data cubes are data structures that have become popular to organise and analyse raster data in particular. You may have heard of Earth observation (EO) data cubes. This are usually data structures that organise satellite imagery and other type of EO data in cubes with multiple dimensions, most specifically the x/y coordinates, time, and bands.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Data ubes
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><img src="https://r-spatial.org/book/images/cover.jpg" class="img-fluid" width="25"> Learn more about data cubes in the <a href="https://r-spatial.org/book/06-Cubes.html">Data cubes chapter</a> in Spatial Data Science.</p>
+</div>
+</div>
 <section id="satellite-imagery" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="satellite-imagery"><span class="header-section-number">3.2.1</span> Satellite imagery</h3>
+<p>In R, the <code>stars</code> package is designed to handle spatiotemporal arrays. We take a look at their example data, a Landsat-7 scene, read into R using <code>stars::read_stars()</code>.</p>
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tif <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"tif/L7_ETMs.tif"</span>, <span class="at">package =</span> <span class="st">"stars"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>l7 <span class="ot">=</span> <span class="fu">read_stars</span>(tif)</span>
@@ -410,6 +423,7 @@ Statistical learning
 <p><img src="raster_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
+<p>The quick plot above automatically creates subplots of the third dimension of the data, which is the <code>band</code> dimension. We can subset this dimension using the <code>[</code> operator.</p>
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>l7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -436,6 +450,7 @@ y       1 352 9120761 -28.5 SIRGAS 2000 / UTM zone 25S FALSE [y]
 band    3   4      NA    NA                         NA    NA    </code></pre>
 </div>
 </div>
+<p>And we can create RGB plots with the plot method of stars using the <code>rgb</code> parameter to corresponding bands.</p>
 <div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(l7, <span class="at">rgb =</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>), <span class="at">reset =</span> <span class="cn">FALSE</span>, <span class="at">main =</span> <span class="st">"RGB"</span>)    <span class="co"># rgb</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(l7, <span class="at">rgb =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="at">main =</span> <span class="st">"False colour (NIR-G-B)"</span>) <span class="co"># false colour</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -453,13 +468,20 @@ band    3   4      NA    NA                         NA    NA    </code></pre>
 </section>
 <section id="applying-functions" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="applying-functions"><span class="header-section-number">3.2.2</span> Applying functions</h3>
+<p>We can also apply functions over dimensions. For example, here we create a function to calculate the NDVI. This function takes two arguments, the red and nir bands. We then subset the cube with dimensions <code>3:4</code>, followed by the dimensions on which this function is applied to and finally the function itself.</p>
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fn_ndvi <span class="ot">=</span> <span class="cf">function</span>(red,nir) (nir<span class="sc">-</span>red)<span class="sc">/</span>(nir<span class="sc">+</span>red)</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>ndvi <span class="ot">=</span> <span class="fu">st_apply</span>(l7[,,,<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>], <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>, fn_ndvi)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Let’s take a look at the result with <code>tmap</code>.</p>
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(ndvi) <span class="sc">+</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(<span class="at">col.scale =</span> <span class="fu">tm_scale_continuous</span>(<span class="at">values =</span> <span class="st">"prgn"</span>, <span class="at">midpoint =</span> <span class="dv">0</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_raster</span>(</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">col.scale =</span> <span class="fu">tm_scale_continuous</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">values =</span> <span class="st">"prgn"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">midpoint =</span> <span class="dv">0</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="raster_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid" width="672"></p>
 </div>
