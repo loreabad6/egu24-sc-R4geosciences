@@ -242,5 +242,5 @@ You can find links to other R packages and resources for data visualisation [her
 ```{r}
 #| include: false
 # automatically create a bib database for R packages
-knitr::write_bib(c(.packages()), "packages.bib")
+knitr::write_bib(c(.packages()), "packages-vector.bib")
 ```

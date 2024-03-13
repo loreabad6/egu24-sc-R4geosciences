@@ -38,7 +38,9 @@ book:
   repo-url: "https://github.com/loreabad6/egu24-sc-R4geosciences"
 
 bibliography: 
-    - packages.bib
+    - packages-index.bib
+    - packages-vector.bib
+    - packages-raster.bib
     - "https://api.citedrive.com/bib/f67c224b-6fcd-4870-87fc-67374abf013e/references.bib?x=eyJpZCI6ICJmNjdjMjI0Yi02ZmNkLTQ4NzAtODdmYy02NzM3NGFiZjAxM2UiLCAidXNlciI6ICIyNTY4IiwgInNpZ25hdHVyZSI6ICJiZmJhYzUyOThkY2E0ZWI4MjZjNjVkMDQ5MDc2N2I0OGVmMjQ1ZmI4ODMwYmVhYjllYmIwNmJiMTY0MWVlYThmIn0=/bibliography.bib"
 
 nocite: |

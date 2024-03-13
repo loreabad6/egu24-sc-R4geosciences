@@ -273,5 +273,5 @@ plot(precipitation_max["when"], key.pos = 1,
 ```{r}
 #| include: false
 # automatically create a bib database for R packages
-knitr::write_bib(c(.packages()), "packages.bib")
+knitr::write_bib(c(.packages()), "packages-raster.bib")
 ```
