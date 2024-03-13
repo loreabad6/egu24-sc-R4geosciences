@@ -162,7 +162,7 @@ And we can create RGB plots with the plot method of stars using the `rgb` parame
 #| layout-ncol: 2
 #| fig-height: 7
 plot(l7, rgb = c(3,2,1), reset = FALSE, main = "RGB")    # rgb
-plot(l7, rgb = c(4,3,2), main = "False colour (NIR-G-B)") # false colour
+plot(l7, rgb = c(4,3,2), main = "False colour (NIR-R-G)") # false colour
 ```
 
 ### Applying functions
