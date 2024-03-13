@@ -50,7 +50,7 @@ We can now print the data to see how it looks like.
 rivers
 ```
 
-An `sf` object shows each observation in a row and each attribute in a column.
+A `sf` object shows each observation in a row and each attribute in a column.
 The object header includes relevant spatial information about the object, 
 like the number of rows and columns, the geometry type, dimensions, bounding box and the CRS.
 Our rivers object has only one column, the geometry column.
