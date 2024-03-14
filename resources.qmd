@@ -5,8 +5,9 @@
 - [Spatial Data Science with Applications in R](https://r-spatial.org/book/) by @Pebesma_2023
 - [Geocomputation with R](https://r.geocompx.org/) by @lovelace_geocomputation_2019
 
-## Blogs & Articles:
+## Workshops, Blogs & Articles:
 
+- [Getting started with R and R-Spatial](https://bakaniko.github.io/foss4g2022-getting-started-rspatial/) by Nicolas Roelandt and Jakub Nowosad for a FOSS4G 2022 workshop.
 - [R libraries for geoscience](https://couttsgeodata.netlify.app/post/2021-02-28-r_geoscience/) by Danny Coutts
 - "Potential use of R-statistical programming in the field of geoscience" by @Bishwal_2017 in *International Conference for Convergence of Technology (I2CT)*.
 
