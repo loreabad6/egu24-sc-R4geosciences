@@ -6,7 +6,8 @@
 
 ## Notes on coding style
 
-1. R has different coding paradigms, most importantly base R, [tidyverse](https://www.tidyverse.org/) and [data.table](https://rdatatable.gitlab.io/data.table/). In this course we use base R, but give some tips to resources for the tidyverse here and there. 
+1. R has different coding paradigms, most importantly base R, [tidyverse](https://www.tidyverse.org/) and [data.table](https://rdatatable.gitlab.io/data.table/). In this course we use base R, but give some tips to resources for the tidyverse here and there.
+
 2. The typical assignment notation in R is `<-`. However, in these materials you will see `=` used for assignment. Both are completely fine to use and these materials use `=` just for preference.
 
 ```{r}
