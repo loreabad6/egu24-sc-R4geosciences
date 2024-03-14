@@ -437,18 +437,7 @@ Data ubes
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tif <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"tif/L7_ETMs.tif"</span>, <span class="at">package =</span> <span class="st">"stars"</span>)</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>l7 <span class="ot">=</span> <span class="fu">read_stars</span>(tif)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(l7, <span class="at">axes =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="raster_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The quick plot above automatically creates subplots of the third dimension of the data, which is the <code>band</code> dimension. We can subset this dimension using the <code>[</code> operator.</p>
-<div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>l7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>l7</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>stars object with 3 dimensions and 1 attribute
 attribute(s):
@@ -460,6 +449,20 @@ x       1 349  288776  28.5 SIRGAS 2000 / UTM zone 25S FALSE [x]
 y       1 352 9120761 -28.5 SIRGAS 2000 / UTM zone 25S FALSE [y]
 band    1   6      NA    NA                         NA    NA    </code></pre>
 </div>
+</div>
+<p>A <code>stars</code> object prints out by summarising the attributes at the top and with a dimensions table at the bottom. In this case we can see the satellite imagery has three dimensions x, y, and band.</p>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(l7, <span class="at">axes =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="raster_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The quick plot above automatically creates subplots of the third dimension of the data, the <code>band</code> dimension. We can subset this dimension using the <code>[</code> operator.</p>
+<div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>l7[,,,<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>stars object with 3 dimensions and 1 attribute
@@ -479,10 +482,10 @@ band    3   4      NA    NA                         NA    NA    </code></pre>
 <div class="cell styled-output quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="raster_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
+<p><img src="raster_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img src="raster_files/figure-html/unnamed-chunk-13-2.png" class="img-fluid" width="672"></p>
+<p><img src="raster_files/figure-html/unnamed-chunk-14-2.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </div>
@@ -506,7 +509,7 @@ band    3   4      NA    NA                         NA    NA    </code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="raster_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="raster_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -514,6 +517,7 @@ band    3   4      NA    NA                         NA    NA    </code></pre>
 </section>
 <section id="climate-data" class="level3" data-number="3.2.3">
 <h3 data-number="3.2.3" class="anchored" data-anchor-id="climate-data"><span class="header-section-number">3.2.3</span> Climate data</h3>
+<p>One recurrent type of data in the geosciences is climate data. More generally, gridded datasets that are available at regular time intervals and most often than not distributed as NetCDF files. This type of data fits perfectly a data cube structure. We use the <code>stars</code> package with its example dataset on precipitation to explore this type of data.</p>
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>precipitation <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"nc/test_stageiv_xyt.nc"</span>, <span class="at">package =</span> <span class="st">"stars"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">read_stars</span>()</span>
@@ -535,16 +539,20 @@ time                               NULL
 curvilinear grid</code></pre>
 </div>
 </div>
+<p>This dataset also has three dimensions but instead of band we have time. To showcase some raster-vector interaction, we load a vector dataset with <a href="https://r-spatial.github.io/sf/reference/nc.html">North Carolina counties</a>.</p>
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>nc <span class="ot">=</span> <span class="fu">system.file</span>(<span class="st">"gpkg/nc.gpkg"</span>, <span class="at">package =</span> <span class="st">"sf"</span>) <span class="sc">|&gt;</span> </span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read_sf</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(precipitation))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Transform CRS to match precipitation data cube</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(precipitation))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>For visualisation purposes, let’s create a union of all counties to obtain an outline of North Carolina.</p>
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>nc_outline <span class="ot">=</span> nc <span class="sc">|&gt;</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_geometry</span>() <span class="sc">|&gt;</span> </span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_union</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Now, using <code>ggplot2</code> we can take a look at the precipitation data over time using <code>ggplot2::geom_stars()</code> and <code>ggplot2::facet_wrap()</code>. We only plot the first twelve dates.</p>
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_stars</span>(<span class="at">data =</span> precipitation[,,,<span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>]) <span class="sc">+</span></span>
@@ -556,7 +564,7 @@ curvilinear grid</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="raster_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="raster_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
@@ -564,59 +572,132 @@ curvilinear grid</code></pre>
 </section>
 <section id="time-series-and-aggregations" class="level3" data-number="3.2.4">
 <h3 data-number="3.2.4" class="anchored" data-anchor-id="time-series-and-aggregations"><span class="header-section-number">3.2.4</span> Time series and aggregations</h3>
+<p>Now, considering that we have a gridded dataset, we can compute zonal statistics per county. In this example, we can analyse the temporal changes per county of the maximum precipitation.</p>
+<p>We use the <code>stars::aggregate()</code> function, where we give an sf object to the <code>by</code> parameter that defines our zones, and a function to compute the aggregate statistic, in this case <code>max()</code>.</p>
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>precipitation_nc <span class="ot">=</span> <span class="fu">aggregate</span>(precipitation, <span class="at">by =</span> nc, <span class="at">FUN =</span> max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>We can plot this with base R and get an immediate glimpse of the result.</p>
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(precipitation_nc, <span class="at">max.plot =</span> <span class="dv">23</span>, <span class="at">border =</span> <span class="st">"grey"</span>, </span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fl">0.5</span>, <span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="raster_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="768"></p>
+<p><img src="raster_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="768"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>If we print this object you can notice that we no longer are working with a gridded data set (x/y are gone), but instead the dimension is the county geometry. We have created now a vector data cube!</p>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>precipitation_nc</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars object with 2 dimensions and 1 attribute
+attribute(s):
+                             Min. 1st Qu. Median     Mean 3rd Qu.   Max. NA's
+test_stageiv_xyt.nc [kg/m^2]    0    0.38   2.88 9.903651   13.75 136.63  966
+dimension(s):
+     from  to                  offset   delta         refsys point
+geom    1 100                      NA      NA WGS 84 (CRS84) FALSE
+time    1  23 2018-09-13 19:00:00 UTC 1 hours        POSIXct    NA
+                                                            values
+geom MULTIPOLYGON (((-81.47258...,...,MULTIPOLYGON (((-78.65546...
+time                                                          NULL</code></pre>
+</div>
+</div>
+<p>We can transform this into a sf object to have another view of what we are dealing with.</p>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>precipitation_nc_df <span class="ot">=</span> precipitation_nc <span class="sc">|&gt;</span> </span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(<span class="at">long =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(nc) </span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>precipitation_nc_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 13570 features and 16 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -84.32377 ymin: 33.88212 xmax: -75.45662 ymax: 36.58973
+Geodetic CRS:  WGS 84 (CRS84)
+First 10 features:
+                   time test_stageiv_xyt.nc  AREA PERIMETER CNTY_ CNTY_ID
+1   2018-09-13 19:00:00         NA [kg/m^2] 0.114     1.442  1825    1825
+1.1 2018-09-13 19:00:00         NA [kg/m^2] 0.061     1.231  1827    1827
+1.2 2018-09-13 19:00:00         NA [kg/m^2] 0.199     1.984  1874    1874
+1.3 2018-09-13 19:00:00         NA [kg/m^2] 0.081     1.288  1880    1880
+2   2018-09-13 19:00:00         NA [kg/m^2] 0.114     1.442  1825    1825
+2.1 2018-09-13 19:00:00         NA [kg/m^2] 0.061     1.231  1827    1827
+2.2 2018-09-13 19:00:00         NA [kg/m^2] 0.143     1.630  1828    1828
+2.3 2018-09-13 19:00:00         NA [kg/m^2] 0.199     1.984  1874    1874
+3   2018-09-13 19:00:00         NA [kg/m^2] 0.061     1.231  1827    1827
+3.1 2018-09-13 19:00:00         NA [kg/m^2] 0.143     1.630  1828    1828
+         NAME  FIPS FIPSNO CRESS_ID BIR74 SID74 NWBIR74 BIR79 SID79 NWBIR79
+1        Ashe 37009  37009        5  1091     1      10  1364     0      19
+1.1 Alleghany 37005  37005        3   487     0      10   542     3      12
+1.2    Wilkes 37193  37193       97  3146     4     200  3725     7     222
+1.3   Watauga 37189  37189       95  1323     1      17  1775     1      33
+2        Ashe 37009  37009        5  1091     1      10  1364     0      19
+2.1 Alleghany 37005  37005        3   487     0      10   542     3      12
+2.2     Surry 37171  37171       86  3188     5     208  3616     6     260
+2.3    Wilkes 37193  37193       97  3146     4     200  3725     7     222
+3   Alleghany 37005  37005        3   487     0      10   542     3      12
+3.1     Surry 37171  37171       86  3188     5     208  3616     6     260
+                              geom
+1   MULTIPOLYGON (((-81.47258 3...
+1.1 MULTIPOLYGON (((-81.47258 3...
+1.2 MULTIPOLYGON (((-81.47258 3...
+1.3 MULTIPOLYGON (((-81.47258 3...
+2   MULTIPOLYGON (((-81.23971 3...
+2.1 MULTIPOLYGON (((-81.23971 3...
+2.2 MULTIPOLYGON (((-81.23971 3...
+2.3 MULTIPOLYGON (((-81.23971 3...
+3   MULTIPOLYGON (((-80.45614 3...
+3.1 MULTIPOLYGON (((-80.45614 3...</code></pre>
+</div>
+</div>
+<p>With this we can create time series of maximum precipitation per county.</p>
 <div class="cell styled-output">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>precipitation_nc <span class="sc">|&gt;</span> <span class="fu">st_as_sf</span>(<span class="at">long =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(nc) <span class="sc">|&gt;</span> </span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">as.POSIXct</span>(time),</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> test_stageiv_xyt.nc</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_datetime</span>(<span class="at">date_breaks =</span> <span class="st">"12 hours"</span>, <span class="at">date_labels =</span> <span class="st">"%H:%M"</span>) <span class="sc">+</span></span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Time"</span>, <span class="at">y =</span> <span class="st">"Precipitation (mm)"</span>) <span class="sc">+</span></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>NAME)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(precipitation_nc_df) <span class="sc">+</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">as.POSIXct</span>(time),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> test_stageiv_xyt.nc</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_datetime</span>(<span class="at">date_breaks =</span> <span class="st">"12 hours"</span>, <span class="at">date_labels =</span> <span class="st">"%H:%M"</span>) <span class="sc">+</span></span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Time"</span>, <span class="at">y =</span> <span class="st">"Max. Precipitation (mm)"</span>) <span class="sc">+</span></span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>NAME)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="raster_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="raster_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>Finally, to have a summary map of the maximum precipitation, we can calculate when was the date of maximum precipitation per county. For this, we apply a custom function <code>index_max</code> that gets the index of the maximum precipitation value, when all values are not NA.</p>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>index_max <span class="ot">=</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">all</span>(<span class="fu">is.na</span>(x)), <span class="cn">NA</span>, <span class="fu">which.max</span>(x))</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>precipitation_max <span class="ot">=</span> <span class="fu">st_apply</span>(precipitation_nc, <span class="st">"geom"</span>, index_max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>index_max <span class="ot">=</span> <span class="cf">function</span>(x) <span class="fu">ifelse</span>(<span class="fu">all</span>(<span class="fu">is.na</span>(x)), <span class="cn">NA</span>, <span class="fu">which.max</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>We apply this function to the geometry dimension, which translates into a reduction over time operation.</p>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>precipitation_max<span class="sc">$</span>when <span class="ot">=</span> <span class="fu">st_get_dimension_values</span>(</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  precipitation_nc, <span class="st">"time"</span>)[precipitation_max<span class="sc">$</span>index_max]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>precipitation_max <span class="ot">=</span> <span class="fu">st_apply</span>(precipitation_nc, <span class="st">"geom"</span>, index_max)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>And lastly, we obtain the dimension value for the corresponding index we computed.</p>
 <div class="cell styled-output">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(precipitation_max[<span class="st">"when"</span>], <span class="at">key.pos =</span> <span class="dv">1</span>, </span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"time of maximum precipitation"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>precipitation_max<span class="sc">$</span>when <span class="ot">=</span> <span class="fu">st_get_dimension_values</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  precipitation_nc, <span class="st">"time"</span>)[precipitation_max<span class="sc">$</span>index_max]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s plot the results!</p>
+<div class="cell styled-output">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(precipitation_max[<span class="st">"when"</span>], <span class="at">key.pos =</span> <span class="dv">1</span>, </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Time of maximum precipitation"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="raster_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="960"></p>
+<p><img src="raster_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="960"></p>
 </figure>
 </div>
 </div>

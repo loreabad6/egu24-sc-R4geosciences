@@ -145,14 +145,20 @@ We take a look at their example data, a Landsat-7 scene, read into R using `star
 ```{r}
 tif = system.file("tif/L7_ETMs.tif", package = "stars")
 l7 = read_stars(tif)
+l7
+```
+
+A `stars` object prints out by summarising the attributes at the top and with a dimensions table at the bottom. 
+In this case we can see the satellite imagery has three dimensions x, y, and band. 
+
+```{r}
 plot(l7, axes = TRUE)
 ```
 
-The quick plot above automatically creates subplots of the third dimension of the data, which is the `band` dimension.
+The quick plot above automatically creates subplots of the third dimension of the data, the `band` dimension.
 We can subset this dimension using the `[` operator.
 
 ```{r}
-l7
 l7[,,,3:4]
 ```
 
@@ -191,23 +197,37 @@ tm_shape(ndvi) +
 
 ### Climate data
 
+One recurrent type of data in the geosciences is climate data. 
+More generally, gridded datasets that are available at regular time intervals and most often than not distributed as NetCDF files.
+This type of data fits perfectly a data cube structure.
+We use the `stars` package with its example dataset on precipitation to explore this type of data.
+
 ```{r}
 precipitation = system.file("nc/test_stageiv_xyt.nc", package = "stars") |>
     read_stars()
 precipitation
 ```
 
+This dataset also has three dimensions but instead of band we have time. 
+To showcase some raster-vector interaction, we load a vector dataset with [North Carolina counties](https://r-spatial.github.io/sf/reference/nc.html).
+
 ```{r}
 nc = system.file("gpkg/nc.gpkg", package = "sf") |> 
   read_sf() |> 
+  # Transform CRS to match precipitation data cube
   st_transform(st_crs(precipitation))
 ```
+
+For visualisation purposes, let's create a union of all counties to obtain an outline of North Carolina.
 
 ```{r}
 nc_outline = nc |> 
   st_geometry() |> 
   st_union()
 ```
+
+Now, using `ggplot2` we can take a look at the precipitation data over time using `ggplot2::geom_stars()` and `ggplot2::facet_wrap()`.
+We only plot the first twelve dates.
 
 ```{r}
 #| fig-width: 10
@@ -223,9 +243,16 @@ ggplot() +
 
 ### Time series and aggregations
 
+Now, considering that we have a gridded dataset, we can compute zonal statistics per county.
+In this example, we can analyse the temporal changes per county of the maximum precipitation.
+
+We use the `stars::aggregate()` function, where we give an sf object to the `by` parameter that defines our zones, and a function to compute the aggregate statistic, in this case `max()`. 
+
 ```{r}
 precipitation_nc = aggregate(precipitation, by = nc, FUN = max)
 ```
+
+We can plot this with base R and get an immediate glimpse of the result. 
 
 ```{r}
 #| fig-width: 8
@@ -234,40 +261,68 @@ plot(precipitation_nc, max.plot = 23, border = "grey",
      lwd = 0.5, mfrow = c(5,5))
 ```
 
+If we print this object you can notice that we no longer are working with a gridded data set (x/y are gone), but instead the dimension is the county geometry.
+We have created now a vector data cube!
+
+```{r}
+precipitation_nc
+```
+
+We can transform this into a sf object to have another view of what we are dealing with. 
+
+```{r}
+precipitation_nc_df = precipitation_nc |> 
+  st_as_sf(long = TRUE) |>
+  st_join(nc) 
+precipitation_nc_df
+```
+
+With this we can create time series of maximum precipitation per county.
+
 ```{r}
 #| code-fold: true
 #| fig-width: 10
 #| fig-height: 9
 #| warning: false
-precipitation_nc |> st_as_sf(long = TRUE) |>
-  st_join(nc) |> 
-  ggplot() + 
+ggplot(precipitation_nc_df) + 
   aes(
     x = as.POSIXct(time),
     y = test_stageiv_xyt.nc
-  ) + 
+  ) +
   geom_point() + geom_line() +
   scale_x_datetime(date_breaks = "12 hours", date_labels = "%H:%M") +
   theme(legend.position = "none") +
-  labs(x = "Time", y = "Precipitation (mm)") +
+  labs(x = "Time", y = "Max. Precipitation (mm)") +
   facet_wrap(~NAME)
 ```
 
+Finally, to have a summary map of the maximum precipitation, we can calculate when was the date of maximum precipitation per county.
+For this, we apply a custom function `index_max` that gets the index of the maximum precipitation value, when all values are not NA.
+
 ```{r}
 index_max = function(x) ifelse(all(is.na(x)), NA, which.max(x))
+```
+
+We apply this function to the geometry dimension, which translates into a reduction over time operation. 
+
+```{r}
 precipitation_max = st_apply(precipitation_nc, "geom", index_max)
 ```
+
+And lastly, we obtain the dimension value for the corresponding index we computed.
 
 ```{r}
 precipitation_max$when = st_get_dimension_values(
   precipitation_nc, "time")[precipitation_max$index_max]
 ```
 
+Let's plot the results!
+
 ```{r}
 #| fig-width: 10
 #| fig-height: 5
 plot(precipitation_max["when"], key.pos = 1, 
-     main = "time of maximum precipitation")
+     main = "Time of maximum precipitation")
 ```
 
 ```{r}
