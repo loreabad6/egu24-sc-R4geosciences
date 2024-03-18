@@ -14,6 +14,8 @@ In R, the simple features standard is implemented through the `sf` package [@R-s
 knitr::include_graphics("https://r.geocompx.org/figures/sf-classes.png")
 ```
 
+[![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/6025ee5a-bf25-4275-a211-16f4425089d2_rw_1920.png?h=8df287c0e9803a81d2406fdd7ff938da)]{.aside}
+
 `sf` is the main package we focus on in this section. 
 Plus, we take a look at three packages for spatial data visualisation:
 `ggplot2` [@R-ggplot2], `tmap` [@R-tmap], and `mapview` [@R-mapview].
