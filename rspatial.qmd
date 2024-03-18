@@ -1,5 +1,54 @@
-# Intro to R-spatial 
+# Why R for geosciences? 
 
-Add brief introduction to R-spatial ecosystem
+![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/a3eaa2ec-c0e8-491c-af88-ab5a64ebea61_rw_600.gif?h=a0af8f2bf532a1880e4637acbc8a664c){width="25%" fig-align="center"}
 
-![](https://raw.githubusercontent.com/edzer/sdsr/main/images/sf_deps.png)
+- Free and open-source software
+
+- Reproducibility
+
+- Good package maintenance
+
+- Statistical capabilities
+
+- Handling geographic and non-geographic data
+
+- Visualisation
+
+## What about other programming languages?
+
+[![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/358e3ecd-32dd-493b-a2b0-12bafabf186c_rw_1920.png?h=de610469af9bdb8078c5030cbf17a151)]{.aside}
+
+This is not a competition and actually learning one programming language might be a good gateway to learning a second one. 
+
+Choosing a programming language is more about what your feel more comfortable with, what tool is good for the job or what the rest of your team is using.
+
+Here are other courses on Python and Julia at EGU24:
+
+| ![](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png){width="20%"} | ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/2560px-Julia_Programming_Language_Logo.svg.png){width="20%"} |
+| :-----------: | :--------------: |
+| Mon. 15.04. 19:00 - 20:00 <br> [Introduction to Geospatial Raster and Vector Data with Python](https://meetingorganizer.copernicus.org/EGU24/session/49444) | Wed. 17.04. 08:30 - 10L15 <br> [Introduction to Julia for geoscience](https://meetingorganizer.copernicus.org/EGU24/session/4944) |
+| Thu. 18.04. 16:15 - 18:00 <br> [Introduction to Python for Earth System Sciences](https://meetingorganizer.copernicus.org/EGU24/session/49516) | |
+
+: Data science programming languages courses at EGU24
+
+## R-spatial ecosystem
+
+> R-Spatial can be loosely defined as the ecosystem of code, projects and people using R for working with and adding value to spatial data.[^1]
+
+[^1]: https://www.osgeo.org/projects/r-spatial/
+
+The [R-spatial organization](https://github.com/r-spatial) attempts to harmonise packages for spatial analysis in R, with a large number of R packages depending on {sf}, the core package for spatial data handling.
+
+![R-spatial ecosystem from @stars2023](https://raw.githubusercontent.com/edzer/sdsr/main/images/sf_deps.png){fig-align="center"}
+
+## Rspatial counterpart
+
+Not to be confused with R-spatial, the Rspatial resources include a different way to handle geospatial data in R. 
+The main package, {terra} provides class and methods to represent raster and vector objects. 
+It works well on large data sets and is a fast implementation mainly because it is written directly in C++.
+This means that, for example, a Python module could also be built on top of this library.
+{terra} is based on C++ modules like `gdal`, `geos` and `ncdf` for data handling. 
+
+![{terra} set-up from @Hijmans_terra_2020](https://bakaniko.github.io/foss4g2022-getting-started-rspatial/figs/terra-libs.png){fig-align="center"}
+
+A good overview of the available spatial libraries can be found in the [CRAN Task View: Analysis of Spatial Data](https://cloud.r-project.org/web/views/Spatial.html)
