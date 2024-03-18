@@ -136,9 +136,8 @@ Data cubes are data structures that have become popular to organise and analyse 
 You may have heard of Earth observation (EO) data cubes. 
 This are usually data structures that organise satellite imagery and other type of EO data in cubes with multiple dimensions, most specifically the x/y coordinates, time, and bands.
 
-
 ::: {.callout-tip}
-# Data ubes
+# Data cubes
 ![](https://r-spatial.org/book/images/cover.jpg){width=25} Learn more about data cubes in the [Data cubes chapter](https://r-spatial.org/book/06-Cubes.html) in Spatial Data Science.
 :::
 
@@ -199,6 +198,15 @@ tm_shape(ndvi) +
     )
   )
 ```
+
+
+::: {.callout-tip}
+R has seen a big advance in handling Earth observation data lately. 
+
+Packages like [{rstac}](https://brazil-data-cube.github.io/rstac/) and [{gdalcubes}](https://gdalcubes.github.io/) allow the creation of data cubes on-demand to analyse satellite imagery on cloud platforms.
+
+The [SITS](https://e-sensing.github.io/sitsbook/) package and resources have put together a great book to work with satellite image time series.
+:::
 
 ### Climate data
 
