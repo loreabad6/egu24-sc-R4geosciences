@@ -176,7 +176,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./rspatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Intro to R-spatial</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why R for geosciences?</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -252,7 +252,7 @@ div.csl-indent {
 
 
 <p>As geoscientists, it is very likely that the majority of data we work with is in raster format. In this section, we will look at how to read raster data into R, how to perform raster/vector operations and basic usage of data cubes.</p>
-<p>We need the packages below, where <code>stars</code> <span class="citation" data-cites="R-stars">(<a href="references.html#ref-R-stars" role="doc-biblioref">Pebesma 2023b</a>)</span> and <code>terra</code> <span class="citation" data-cites="R-terra">(<a href="references.html#ref-R-terra" role="doc-biblioref">Hijmans 2024</a>)</span> are the workforces to handle raster datasets in R.</p>
+<p>We need the packages below, where <code>stars</code> <span class="citation" data-cites="R-stars">(<a href="references.html#ref-R-stars" role="doc-biblioref">Pebesma 2023b</a>)</span> and <code>terra</code> <span class="citation" data-cites="R-terra">(<a href="references.html#ref-R-terra" role="doc-biblioref">R. J. Hijmans 2024</a>)</span> are the workforces to handle raster datasets in R.</p>
 <p>We load <code>sf</code> for raster/vector interaction, <code>ggplot2</code>, <code>tmap</code> and <code>units</code> for visualisation.</p>
 <div class="cell styled-output">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)       <span class="co"># vector spatial data classes and functions</span></span>
@@ -364,6 +364,19 @@ First 10 features:
 10 POINT (713407.7 9560307)</code></pre>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If you use the {tidyverse} and would like to include {terra} to your workflows, take a look at <a href="https://dieghernan.github.io/tidyterra/">{tidyterra}</a>. The package allows you to plot {terra} objects with {ggplot2} too!</p>
+</div>
+</div>
 </section>
 <section id="predictions" class="level3" data-number="3.1.3">
 <h3 data-number="3.1.3" class="anchored" data-anchor-id="predictions"><span class="header-section-number">3.1.3</span> Predictions</h3>
@@ -424,7 +437,7 @@ Statistical learning
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Data ubes
+Data cubes
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -512,6 +525,21 @@ band    3   4      NA    NA                         NA    NA    </code></pre>
 <p><img src="raster_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>R has seen a big advance in handling Earth observation data lately.</p>
+<p>Packages like <a href="https://brazil-data-cube.github.io/rstac/">{rstac}</a> and <a href="https://gdalcubes.github.io/">{gdalcubes}</a> allow the creation of data cubes on-demand to analyse satellite imagery on cloud platforms.</p>
+<p>The <a href="https://e-sensing.github.io/sitsbook/">SITS</a> package and resources have put together a great book to work with satellite image time series.</p>
 </div>
 </div>
 </section>
@@ -723,8 +751,14 @@ Bivand, Roger. 2024. <em>Rgrass: Interface Between ’GRASS’ Geographical Info
 <div id="ref-Brenning_rsaga" class="csl-entry" role="listitem">
 Brenning, Alexander, Donovan Bangs, and Marc Becker. 2022. <em>RSAGA: SAGA Geoprocessing and Terrain Analysis</em>. <a href="https://CRAN.R-project.org/package=RSAGA">https://CRAN.R-project.org/package=RSAGA</a>.
 </div>
+<div id="ref-Camara_sits_2023" class="csl-entry" role="listitem">
+Câmara, Gilberto, Rolf Simoes, Felipe Souza, Charlotte Pelletier, Alber Sanchez, Pedro Andrade, Karine Ferreira, and Gilberto Queiroz. 2023. <span>“<span class="nocase">sits</span>: Satellite Image Time Series Analysis on <span>Earth</span> Observation Data Cubes.”</span> 2023. <a href="https://e-sensing.github.io/sitsbook/index.html">https://e-sensing.github.io/sitsbook/index.html</a>.
+</div>
 <div id="ref-Dunnington_qgisprocess" class="csl-entry" role="listitem">
 Dunnington, Dewey, Floris Vanderhaeghe, Jan Caha, and Jannes Muenchow. n.d. <span>“R Package Qgisprocess: Use QGIS Processing Algorithms.”</span> <a href="https://github.com/r-spatial/qgisprocess/">https://github.com/r-spatial/qgisprocess/</a>.
+</div>
+<div id="ref-Hijmans_terra_2020" class="csl-entry" role="listitem">
+Hijmans, Robert. 2020. <span>“Terra and Luna: New r Packages Scalable Geospatial Data Analysis.”</span> Big Data in Agriculture - 2020 Convention. 2020. <a href="https://www.youtube.com/watch?v=5b2xhqlH49I&amp;t=690s">https://www.youtube.com/watch?v=5b2xhqlH49I&amp;t=690s</a>.
 </div>
 <div id="ref-R-terra" class="csl-entry" role="listitem">
 Hijmans, Robert J. 2024. <em>Terra: Spatial Data Analysis</em>. <a href="https://rspatial.org/">https://rspatial.org/</a>.
@@ -741,14 +775,11 @@ Pebesma, Edzer. 2018. <span>“<span class="nocase">Simple Features for R: Stand
 <div id="ref-R-stars" class="csl-entry" role="listitem">
 ———. 2023b. <em>Stars: Spatiotemporal Arrays, Raster and Vector Data Cubes</em>. <a href="https://r-spatial.github.io/stars/">https://r-spatial.github.io/stars/</a>.
 </div>
-<div id="ref-Pebesma_2023" class="csl-entry" role="listitem">
-Pebesma, Edzer, and Roger Bivand. 2023a. <em>Spatial <span>Data</span> <span>Science</span> with Applications in <span>R</span></em>. <em>Geographical Analysis</em>. 1st ed. Chapman &amp; Hall. <a href="https://r-spatial.org/book/">https://r-spatial.org/book/</a>.
-</div>
 <div id="ref-sf2023" class="csl-entry" role="listitem">
-———. 2023b. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
+Pebesma, Edzer, and Roger Bivand. 2023a. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
 </div>
 <div id="ref-stars2023" class="csl-entry" role="listitem">
-———. 2023c. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. London: Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
+———. 2023b. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. London: Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
 </div>
 <div id="ref-units2016" class="csl-entry" role="listitem">
 Pebesma, Edzer, Thomas Mailund, and James Hiebert. 2016. <span>“Measurement Units in <span>R</span>.”</span> <em>R Journal</em> 8 (2): 486–94. <a href="https://doi.org/10.32614/RJ-2016-061">https://doi.org/10.32614/RJ-2016-061</a>.
@@ -758,6 +789,12 @@ Pebesma, Edzer, Thomas Mailund, Tomasz Kalinowski, and Iñaki Ucar. 2023. <em>Un
 </div>
 <div id="ref-R-base" class="csl-entry" role="listitem">
 R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-Reudenbach_2023" class="csl-entry" role="listitem">
+Reudenbach, Chris. 2023. <em>link2GI: Linking Geographic Information Systems, Remote Sensing and Other Command Line Tools</em>. <a href="https://CRAN.R-project.org/package=link2GI">https://CRAN.R-project.org/package=link2GI</a>.
+</div>
+<div id="ref-Slater_2019" class="csl-entry" role="listitem">
+Slater, Louise J., Guillaume Thirel, Shaun Harrigan, Olivier Delaigue, Alexander Hurley, Abdou Khouakhi, Ilaria Prosdocimi, Claudia Vitolo, and Katie Smith. 2019. <span>“Using r in Hydrology: A Review of Recent Developments and Future Directions.”</span> <em>Hydrology and Earth System Sciences</em> 23 (7): 2939–63. <a href="https://doi.org/10.5194/hess-23-2939-2019 ">https://doi.org/10.5194/hess-23-2939-2019 </a>.
 </div>
 <div id="ref-tmap2018" class="csl-entry" role="listitem">
 Tennekes, Martijn. 2018. <span>“<span class="nocase">tmap</span>: Thematic Maps in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 84 (6): 1–39. <a href="https://doi.org/10.18637/jss.v084.i06">https://doi.org/10.18637/jss.v084.i06</a>.

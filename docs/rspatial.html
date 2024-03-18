@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Introduction to R for the Geosciences – 1&nbsp; Intro to R-spatial</title>
+<title>Introduction to R for the Geosciences – 1&nbsp; Why R for geosciences?</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -95,7 +95,7 @@ div.csl-indent {
 <link rel="stylesheet" href="html-styling/style.css">
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -104,7 +104,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rspatial.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Intro to R-spatial</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rspatial.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why R for geosciences?</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -142,7 +142,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./rspatial.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Intro to R-spatial</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why R for geosciences?</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -174,15 +174,23 @@ div.csl-indent {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#what-about-other-programming-languages" id="toc-what-about-other-programming-languages" class="nav-link active" data-scroll-target="#what-about-other-programming-languages"><span class="header-section-number">1.1</span> What about other programming languages?</a></li>
+  <li><a href="#r-spatial-ecosystem" id="toc-r-spatial-ecosystem" class="nav-link" data-scroll-target="#r-spatial-ecosystem"><span class="header-section-number">1.2</span> R-spatial ecosystem</a></li>
+  <li><a href="#rspatial-counterpart" id="toc-rspatial-counterpart" class="nav-link" data-scroll-target="#rspatial-counterpart"><span class="header-section-number">1.3</span> Rspatial counterpart</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Intro to R-spatial</span></h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why R for geosciences?</span></h1>
 </div>
 
 
@@ -199,8 +207,68 @@ div.csl-indent {
 </header>
 
 
-<p>Add brief introduction to R-spatial ecosystem</p>
-<p><img src="https://raw.githubusercontent.com/edzer/sdsr/main/images/sf_deps.png" class="img-fluid"></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/a3eaa2ec-c0e8-491c-af88-ab5a64ebea61_rw_600.gif?h=a0af8f2bf532a1880e4637acbc8a664c" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:25.0%"></p>
+</figure>
+</div>
+<ul>
+<li><p>Free and open-source software</p></li>
+<li><p>Reproducibility</p></li>
+<li><p>Good package maintenance</p></li>
+<li><p>Statistical capabilities</p></li>
+<li><p>Handling geographic and non-geographic data</p></li>
+<li><p>Visualisation</p></li>
+</ul>
+<section id="what-about-other-programming-languages" class="level2 page-columns page-full" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="what-about-other-programming-languages"><span class="header-section-number">1.1</span> What about other programming languages?</h2>
+<div class="page-columns page-full"><p></p><div class="no-row-height column-margin column-container"><span class="margin-aside"><img src="https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/358e3ecd-32dd-493b-a2b0-12bafabf186c_rw_1920.png?h=de610469af9bdb8078c5030cbf17a151" class="img-fluid"></span></div></div>
+<p>This is not a competition and actually learning one programming language might be a good gateway to learning a second one.</p>
+<p>Choosing a programming language is more about what your feel more comfortable with, what tool is good for the job or what the rest of your team is using.</p>
+<p>Here are other courses on Python and Julia at EGU24:</p>
+<table class="table">
+<caption>Data science programming languages courses at EGU24</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Python-logo-notext.svg/1869px-Python-logo-notext.svg.png" class="img-fluid" style="width:20.0%"></th>
+<th style="text-align: center;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Julia_Programming_Language_Logo.svg/2560px-Julia_Programming_Language_Logo.svg.png" class="img-fluid" style="width:20.0%"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Mon. 15.04. 19:00 - 20:00 <br> <a href="https://meetingorganizer.copernicus.org/EGU24/session/49444">Introduction to Geospatial Raster and Vector Data with Python</a></td>
+<td style="text-align: center;">Wed. 17.04. 08:30 - 10L15 <br> <a href="https://meetingorganizer.copernicus.org/EGU24/session/4944">Introduction to Julia for geoscience</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Thu. 18.04. 16:15 - 18:00 <br> <a href="https://meetingorganizer.copernicus.org/EGU24/session/49516">Introduction to Python for Earth System Sciences</a></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="r-spatial-ecosystem" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="r-spatial-ecosystem"><span class="header-section-number">1.2</span> R-spatial ecosystem</h2>
+<blockquote class="blockquote">
+<p>R-Spatial can be loosely defined as the ecosystem of code, projects and people using R for working with and adding value to spatial data.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+</blockquote>
+<p>The <a href="https://github.com/r-spatial">R-spatial organization</a> attempts to harmonise packages for spatial analysis in R, with a large number of R packages depending on {sf}, the core package for spatial data handling.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://raw.githubusercontent.com/edzer/sdsr/main/images/sf_deps.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figcaption>R-spatial ecosystem from <span class="citation" data-cites="stars2023">Pebesma and Bivand (<a href="references.html#ref-stars2023" role="doc-biblioref">2023a</a>)</span></figcaption>
+</figure>
+</div>
+</section>
+<section id="rspatial-counterpart" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="rspatial-counterpart"><span class="header-section-number">1.3</span> Rspatial counterpart</h2>
+<p>Not to be confused with R-spatial, the Rspatial resources include a different way to handle geospatial data in R. The main package, {terra} provides class and methods to represent raster and vector objects. It works well on large data sets and is a fast implementation mainly because it is written directly in C++. This means that, for example, a Python module could also be built on top of this library. {terra} is based on C++ modules like <code>gdal</code>, <code>geos</code> and <code>ncdf</code> for data handling.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://bakaniko.github.io/foss4g2022-getting-started-rspatial/figs/terra-libs.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
+<figcaption>{terra} set-up from <span class="citation" data-cites="Hijmans_terra_2020">R. Hijmans (<a href="references.html#ref-Hijmans_terra_2020" role="doc-biblioref">2020</a>)</span></figcaption>
+</figure>
+</div>
+<p>A good overview of the available spatial libraries can be found in the <a href="https://cloud.r-project.org/web/views/Spatial.html">CRAN Task View: Analysis of Spatial Data</a></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -222,8 +290,14 @@ Bivand, Roger. 2024. <em>Rgrass: Interface Between ’GRASS’ Geographical Info
 <div id="ref-Brenning_rsaga" class="csl-entry" role="listitem">
 Brenning, Alexander, Donovan Bangs, and Marc Becker. 2022. <em>RSAGA: SAGA Geoprocessing and Terrain Analysis</em>. <a href="https://CRAN.R-project.org/package=RSAGA">https://CRAN.R-project.org/package=RSAGA</a>.
 </div>
+<div id="ref-Camara_sits_2023" class="csl-entry" role="listitem">
+Câmara, Gilberto, Rolf Simoes, Felipe Souza, Charlotte Pelletier, Alber Sanchez, Pedro Andrade, Karine Ferreira, and Gilberto Queiroz. 2023. <span>“<span class="nocase">sits</span>: Satellite Image Time Series Analysis on <span>Earth</span> Observation Data Cubes.”</span> 2023. <a href="https://e-sensing.github.io/sitsbook/index.html">https://e-sensing.github.io/sitsbook/index.html</a>.
+</div>
 <div id="ref-Dunnington_qgisprocess" class="csl-entry" role="listitem">
 Dunnington, Dewey, Floris Vanderhaeghe, Jan Caha, and Jannes Muenchow. n.d. <span>“R Package Qgisprocess: Use QGIS Processing Algorithms.”</span> <a href="https://github.com/r-spatial/qgisprocess/">https://github.com/r-spatial/qgisprocess/</a>.
+</div>
+<div id="ref-Hijmans_terra_2020" class="csl-entry" role="listitem">
+Hijmans, Robert. 2020. <span>“Terra and Luna: New r Packages Scalable Geospatial Data Analysis.”</span> Big Data in Agriculture - 2020 Convention. 2020. <a href="https://www.youtube.com/watch?v=5b2xhqlH49I&amp;t=690s">https://www.youtube.com/watch?v=5b2xhqlH49I&amp;t=690s</a>.
 </div>
 <div id="ref-R-terra" class="csl-entry" role="listitem">
 Hijmans, Robert J. 2024. <em>Terra: Spatial Data Analysis</em>. <a href="https://rspatial.org/">https://rspatial.org/</a>.
@@ -240,14 +314,11 @@ Pebesma, Edzer. 2018. <span>“<span class="nocase">Simple Features for R: Stand
 <div id="ref-R-stars" class="csl-entry" role="listitem">
 ———. 2023b. <em>Stars: Spatiotemporal Arrays, Raster and Vector Data Cubes</em>. <a href="https://r-spatial.github.io/stars/">https://r-spatial.github.io/stars/</a>.
 </div>
-<div id="ref-Pebesma_2023" class="csl-entry" role="listitem">
-Pebesma, Edzer, and Roger Bivand. 2023a. <em>Spatial <span>Data</span> <span>Science</span> with Applications in <span>R</span></em>. <em>Geographical Analysis</em>. 1st ed. Chapman &amp; Hall. <a href="https://r-spatial.org/book/">https://r-spatial.org/book/</a>.
-</div>
 <div id="ref-sf2023" class="csl-entry" role="listitem">
-———. 2023b. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
+Pebesma, Edzer, and Roger Bivand. 2023b. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
 </div>
 <div id="ref-stars2023" class="csl-entry" role="listitem">
-———. 2023c. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. London: Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
+———. 2023a. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. London: Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
 </div>
 <div id="ref-units2016" class="csl-entry" role="listitem">
 Pebesma, Edzer, Thomas Mailund, and James Hiebert. 2016. <span>“Measurement Units in <span>R</span>.”</span> <em>R Journal</em> 8 (2): 486–94. <a href="https://doi.org/10.32614/RJ-2016-061">https://doi.org/10.32614/RJ-2016-061</a>.
@@ -257,6 +328,12 @@ Pebesma, Edzer, Thomas Mailund, Tomasz Kalinowski, and Iñaki Ucar. 2023. <em>Un
 </div>
 <div id="ref-R-base" class="csl-entry" role="listitem">
 R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-Reudenbach_2023" class="csl-entry" role="listitem">
+Reudenbach, Chris. 2023. <em>link2GI: Linking Geographic Information Systems, Remote Sensing and Other Command Line Tools</em>. <a href="https://CRAN.R-project.org/package=link2GI">https://CRAN.R-project.org/package=link2GI</a>.
+</div>
+<div id="ref-Slater_2019" class="csl-entry" role="listitem">
+Slater, Louise J., Guillaume Thirel, Shaun Harrigan, Olivier Delaigue, Alexander Hurley, Abdou Khouakhi, Ilaria Prosdocimi, Claudia Vitolo, and Katie Smith. 2019. <span>“Using r in Hydrology: A Review of Recent Developments and Future Directions.”</span> <em>Hydrology and Earth System Sciences</em> 23 (7): 2939–63. <a href="https://doi.org/10.5194/hess-23-2939-2019 ">https://doi.org/10.5194/hess-23-2939-2019 </a>.
 </div>
 <div id="ref-tmap2018" class="csl-entry" role="listitem">
 Tennekes, Martijn. 2018. <span>“<span class="nocase">tmap</span>: Thematic Maps in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 84 (6): 1–39. <a href="https://doi.org/10.18637/jss.v084.i06">https://doi.org/10.18637/jss.v084.i06</a>.
@@ -280,6 +357,13 @@ Xie, Yihui. 2014. <span>“Knitr: A Comprehensive Tool for Reproducible Research
 ———. 2023. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
 </div>
 </div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>https://www.osgeo.org/projects/r-spatial/<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

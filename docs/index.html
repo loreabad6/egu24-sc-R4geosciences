@@ -10,7 +10,7 @@
 <meta name="author" content="Jakub Nowosad">
 <meta name="author" content="Ewa Grabska-Szwagrzyk">
 <meta name="author" content="Edzer Pebesma">
-<meta name="dcterms.date" content="2024-03-14">
+<meta name="dcterms.date" content="2024-03-18">
 
 <title>Introduction to R for the Geosciences</title>
 <style>
@@ -180,7 +180,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./rspatial.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Intro to R-spatial</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why R for geosciences?</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -227,6 +227,7 @@ div.csl-indent {
   <li><a href="#r-packages" id="toc-r-packages" class="nav-link" data-scroll-target="#r-packages">R packages</a></li>
   </ul></li>
   <li><a href="#notes-on-coding-style" id="toc-notes-on-coding-style" class="nav-link" data-scroll-target="#notes-on-coding-style">Notes on coding style</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -285,7 +286,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 14, 2024</p>
+      <p class="date">March 18, 2024</p>
     </div>
   </div>
   
@@ -306,9 +307,6 @@ div.csl-indent {
 </div>
 <p>These are the materials for the <a href="https://meetingorganizer.copernicus.org/EGU24/session/49442">short course “Introduction to R for the Geosciences” at EGU 2024</a>.</p>
 <p><strong>When and where?</strong> Wednesday, April 17, 19:00-20:00, <strong>Room N1</strong></p>
-<blockquote class="blockquote">
-<p><em>This course is based on the <a href="https://bakaniko.github.io/foss4g2022-getting-started-rspatial/">FOSS4G 2022 workshop “Getting started with R and R-spatial”</a> by Nicolas Roelandt and Jakub Nowosad.</em></p>
-</blockquote>
 <section id="abstract" class="level2">
 <h2 class="anchored" data-anchor-id="abstract">Abstract</h2>
 <p>R is a free, open-source programming language popularly used for data science, statistical analysis, and visualization. Spatial data analysis has been strongly supported by the R community, that provides tools for data reading, writing and downloading, and for spatial processing, visualizing and modelling. The R-Spatial package ecosystem relies on common libraries for geospatial analysis such as GDAL, GEOS, and PROJ. In this workshop, we will introduce participants to spatial data analysis in R. For this, there will be demonstrations of key R packages like {sf}, {stars}, {terra} for vector and raster data processing. We will also focus on spatial data visualization using the {tmap} package. We will focus on datasets strongly used by the Geoscience community, including satellite imagery.</p>
@@ -364,7 +362,13 @@ div.csl-indent {
 <ol type="1">
 <li><p>R has different coding paradigms, most importantly base R, <a href="https://www.tidyverse.org/">tidyverse</a> and <a href="https://rdatatable.gitlab.io/data.table/">data.table</a>. In this course we use base R, but give some tips to resources for the tidyverse here and there.</p></li>
 <li><p>The typical assignment notation in R is <code>&lt;-</code>. However, in these materials you will see <code>=</code> used for assignment. Both are completely fine to use and these materials use <code>=</code> just for preference.</p></li>
+<li><p>Piping: if you are familiar with the tidyverse, you might have seen the use of the <code>%&gt;%</code> operator to concatenate functions. Since R 4.1.0 R introduced a native pipe operator <code>|&gt;</code> and that is what we use in this workshop. If you are curious about how the native pipe works and differences with the <code>magrittr</code> pipe, see <a href="https://ivelasq.rbind.io/blog/understanding-the-r-pipe/">here</a> and <a href="https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/">here</a>.</p></li>
 </ol>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>This course is based on the <a href="https://bakaniko.github.io/foss4g2022-getting-started-rspatial/">FOSS4G 2022 workshop “Getting started with R and R-spatial”</a> by Nicolas Roelandt and Jakub Nowosad.</p>
+<p>The <a href="https://allisonhorst.com/allison-horst">artwork</a> in these materials is by Allison Horst (<a href="https://twitter.com/allison_horst">@allison_horst</a>).</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -386,8 +390,14 @@ Bivand, Roger. 2024. <em>Rgrass: Interface Between ’GRASS’ Geographical Info
 <div id="ref-Brenning_rsaga" class="csl-entry" role="listitem">
 Brenning, Alexander, Donovan Bangs, and Marc Becker. 2022. <em>RSAGA: SAGA Geoprocessing and Terrain Analysis</em>. <a href="https://CRAN.R-project.org/package=RSAGA">https://CRAN.R-project.org/package=RSAGA</a>.
 </div>
+<div id="ref-Camara_sits_2023" class="csl-entry" role="listitem">
+Câmara, Gilberto, Rolf Simoes, Felipe Souza, Charlotte Pelletier, Alber Sanchez, Pedro Andrade, Karine Ferreira, and Gilberto Queiroz. 2023. <span>“<span class="nocase">sits</span>: Satellite Image Time Series Analysis on <span>Earth</span> Observation Data Cubes.”</span> 2023. <a href="https://e-sensing.github.io/sitsbook/index.html">https://e-sensing.github.io/sitsbook/index.html</a>.
+</div>
 <div id="ref-Dunnington_qgisprocess" class="csl-entry" role="listitem">
 Dunnington, Dewey, Floris Vanderhaeghe, Jan Caha, and Jannes Muenchow. n.d. <span>“R Package Qgisprocess: Use QGIS Processing Algorithms.”</span> <a href="https://github.com/r-spatial/qgisprocess/">https://github.com/r-spatial/qgisprocess/</a>.
+</div>
+<div id="ref-Hijmans_terra_2020" class="csl-entry" role="listitem">
+Hijmans, Robert. 2020. <span>“Terra and Luna: New r Packages Scalable Geospatial Data Analysis.”</span> Big Data in Agriculture - 2020 Convention. 2020. <a href="https://www.youtube.com/watch?v=5b2xhqlH49I&amp;t=690s">https://www.youtube.com/watch?v=5b2xhqlH49I&amp;t=690s</a>.
 </div>
 <div id="ref-R-terra" class="csl-entry" role="listitem">
 Hijmans, Robert J. 2024. <em>Terra: Spatial Data Analysis</em>. <a href="https://rspatial.org/">https://rspatial.org/</a>.
@@ -404,14 +414,11 @@ Pebesma, Edzer. 2018. <span>“<span class="nocase">Simple Features for R: Stand
 <div id="ref-R-stars" class="csl-entry" role="listitem">
 ———. 2023b. <em>Stars: Spatiotemporal Arrays, Raster and Vector Data Cubes</em>. <a href="https://r-spatial.github.io/stars/">https://r-spatial.github.io/stars/</a>.
 </div>
-<div id="ref-Pebesma_2023" class="csl-entry" role="listitem">
-Pebesma, Edzer, and Roger Bivand. 2023a. <em>Spatial <span>Data</span> <span>Science</span> with Applications in <span>R</span></em>. <em>Geographical Analysis</em>. 1st ed. Chapman &amp; Hall. <a href="https://r-spatial.org/book/">https://r-spatial.org/book/</a>.
-</div>
 <div id="ref-sf2023" class="csl-entry" role="listitem">
-———. 2023b. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
+Pebesma, Edzer, and Roger Bivand. 2023a. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. <span>Chapman and Hall/CRC</span>. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
 </div>
 <div id="ref-stars2023" class="csl-entry" role="listitem">
-———. 2023c. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. London: Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
+———. 2023b. <em><span class="nocase">Spatial Data Science: With applications in R</span></em>. London: Chapman; Hall/CRC. <a href="https://doi.org/10.1201/9780429459016">https://doi.org/10.1201/9780429459016</a>.
 </div>
 <div id="ref-units2016" class="csl-entry" role="listitem">
 Pebesma, Edzer, Thomas Mailund, and James Hiebert. 2016. <span>“Measurement Units in <span>R</span>.”</span> <em>R Journal</em> 8 (2): 486–94. <a href="https://doi.org/10.32614/RJ-2016-061">https://doi.org/10.32614/RJ-2016-061</a>.
@@ -421,6 +428,12 @@ Pebesma, Edzer, Thomas Mailund, Tomasz Kalinowski, and Iñaki Ucar. 2023. <em>Un
 </div>
 <div id="ref-R-base" class="csl-entry" role="listitem">
 R Core Team. 2023. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-Reudenbach_2023" class="csl-entry" role="listitem">
+Reudenbach, Chris. 2023. <em>link2GI: Linking Geographic Information Systems, Remote Sensing and Other Command Line Tools</em>. <a href="https://CRAN.R-project.org/package=link2GI">https://CRAN.R-project.org/package=link2GI</a>.
+</div>
+<div id="ref-Slater_2019" class="csl-entry" role="listitem">
+Slater, Louise J., Guillaume Thirel, Shaun Harrigan, Olivier Delaigue, Alexander Hurley, Abdou Khouakhi, Ilaria Prosdocimi, Claudia Vitolo, and Katie Smith. 2019. <span>“Using r in Hydrology: A Review of Recent Developments and Future Directions.”</span> <em>Hydrology and Earth System Sciences</em> 23 (7): 2939–63. <a href="https://doi.org/10.5194/hess-23-2939-2019 ">https://doi.org/10.5194/hess-23-2939-2019 </a>.
 </div>
 <div id="ref-tmap2018" class="csl-entry" role="listitem">
 Tennekes, Martijn. 2018. <span>“<span class="nocase">tmap</span>: Thematic Maps in <span>R</span>.”</span> <em>Journal of Statistical Software</em> 84 (6): 1–39. <a href="https://doi.org/10.18637/jss.v084.i06">https://doi.org/10.18637/jss.v084.i06</a>.
@@ -1005,8 +1018,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./rspatial.html" class="pagination-link" aria-label="Intro to R-spatial">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Intro to R-spatial</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./rspatial.html" class="pagination-link" aria-label="Why R for geosciences?">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Why R for geosciences?</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
