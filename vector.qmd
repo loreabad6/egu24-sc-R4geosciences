@@ -14,8 +14,8 @@ In R, the simple features standard is implemented through the `sf` package [@R-s
 knitr::include_graphics("https://r.geocompx.org/figures/sf-classes.png")
 ```
 
-`sf` is the main package we will focus on in this section. 
-Plus, we will take a look at three packages for spatial data visualisation:
+`sf` is the main package we focus on in this section. 
+Plus, we take a look at three packages for spatial data visualisation:
 `ggplot2` [@R-ggplot2], `tmap` [@R-tmap], and `mapview` [@R-mapview].
 
 We can load them as:
@@ -97,7 +97,7 @@ rivers["length"] = st_length(rivers)
 rivers
 ```
 
-To show other operations, we will load another dataset.
+To show other operations, we load another dataset.
 This are administrative areas in New Zealand. 
 The data comes from the `spData` package, which is a data package that has some example datasets.
 
@@ -141,7 +141,7 @@ rivers |> st_intersection(gisborne)
 ```
 
 We just intersected the river data with the data in the `gisborne` object.
-What we are doing is an inner spatial join, where only those river linestrings that intersect the `gisborne` object will stay.
+What we are doing is an inner spatial join, where only those river linestrings that intersect the `gisborne` object stay.
 Another way to do this is:
 
 ```{r}
@@ -192,7 +192,7 @@ Some plots have already been shown in the sections above, but let's look at this
 
 ### Base R
 
-`sf` has a base plot method, which will plot in small subsets the different columns of the geospatial dataset.
+`sf` has a base plot method, which plots in small subsets the different columns of the geospatial dataset.
 
 ```{r}
 plot(nz)
@@ -210,6 +210,10 @@ There is no need to specify any x/y coordinates since the geometry is recognised
 ggplot(nz) +
   geom_sf(aes(fill = Population))
 ```
+
+::: {.callout-tip}
+A great companion for making maps with {ggplot2} is [{ggspatial}](https://paleolimbot.github.io/ggspatial/index.html)!
+:::
 
 ### tmap v.4
 

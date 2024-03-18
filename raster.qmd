@@ -89,6 +89,11 @@ We did not save the result of this since the landslides object already has the c
 landslides
 ```
 
+:::{.callout-tip}
+If you use the {tidyverse} and would like to include {terra} to your workflows, take a look at [{tidyterra}](https://dieghernan.github.io/tidyterra/).
+The package allows you to plot {terra} objects with [ggplot2] too!
+:::
+
 ### Predictions
 
 Once we have extracted the data from the terrain derivatives at the landslide point locations, 
