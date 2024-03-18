@@ -2,8 +2,6 @@ These are the materials for the [short course "Introduction to R for the Geoscie
 
 **When and where?** Wednesday, April 17, 19:00-20:00, **Room N1**
 
-> *This course is based on the [FOSS4G 2022 workshop "Getting started with R and R-spatial"](https://bakaniko.github.io/foss4g2022-getting-started-rspatial/) by Nicolas Roelandt and Jakub Nowosad.*
-
 ## Abstract
 
 R is a free, open-source programming language popularly used for data science, statistical analysis, and visualization. Spatial data analysis has been strongly supported by the R community, that provides tools for data reading, writing and downloading, and for spatial processing, visualizing and modelling. The R-Spatial package ecosystem relies on common libraries for geospatial analysis such as GDAL, GEOS, and PROJ. In this workshop, we will introduce participants to spatial data analysis in R. For this, there will be demonstrations of key R packages like {sf}, {stars}, {terra} for vector and raster data processing. We will also focus on spatial data visualization using the {tmap} package. We will focus on datasets strongly used by the Geoscience community, including satellite imagery.

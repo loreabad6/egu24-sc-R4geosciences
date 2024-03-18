@@ -10,6 +10,14 @@
 
 2. The typical assignment notation in R is `<-`. However, in these materials you will see `=` used for assignment. Both are completely fine to use and these materials use `=` just for preference.
 
+3. Piping: if you are familiar with the tidyverse, you might have seen the use of the `%>%` operator to concatenate functions. Since R 4.1.0 R introduced a native pipe operator `|>` and that is what we use in this workshop. If you are curious about how the native pipe works and differences with the `magrittr` pipe, see [here](https://ivelasq.rbind.io/blog/understanding-the-r-pipe/) and [here](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/).
+
+## Acknowledgements
+
+This course is based on the [FOSS4G 2022 workshop "Getting started with R and R-spatial"](https://bakaniko.github.io/foss4g2022-getting-started-rspatial/) by Nicolas Roelandt and Jakub Nowosad.
+
+The [artwork](https://allisonhorst.com/allison-horst) in these materials is by Allison Horst ([\@allison_horst](https://twitter.com/allison_horst)).
+
 ```{r}
 #| include: false
 # automatically create a bib database for R packages
