@@ -1,15 +1,26 @@
 # Further resources {.unnumbered}
 
+## Packages: 
+- [CRAN Task View: Analysis of Spatial Data](https://cloud.r-project.org/web/views/Spatial.html)
+- [R libraries for geoscience](https://couttsgeodata.netlify.app/post/2021-02-28-r_geoscience/) by Danny Coutts
+- [CRAN Task View: Hydrological Data and Modeling](https://cran.r-project.org/web/views/Hydrology.html)
+- [CRAN Task View: Analysis of Ecological and Environmental Data](https://cran.r-project.org/web/views/Environmetrics.html)
+
 ## Books:
 
 - [Spatial Data Science with Applications in R](https://r-spatial.org/book/) by @Pebesma_2023
 - [Geocomputation with R](https://r.geocompx.org/) by @lovelace_geocomputation_2019
 
-## Workshops, Blogs & Articles:
+## Blogs, Courses, Workshops & Articles:
 
+- [R-spatial blog](https://r-spatial.org/)
+- [geocompx blog](https://geocompx.org/post)
 - [Getting started with R and R-Spatial](https://bakaniko.github.io/foss4g2022-getting-started-rspatial/) by Nicolas Roelandt and Jakub Nowosad for a FOSS4G 2022 workshop.
-- [R libraries for geoscience](https://couttsgeodata.netlify.app/post/2021-02-28-r_geoscience/) by Danny Coutts
+- [Introduction to Spatial Data Programming with R](https://geobgu.xyz/r-2022/) by Michael Dorman
+- [Spatial Data Science with R and “terra”](https://rspatial.org/index.html) by Robert J. Hijmans
+- [Intro to GIS and Spatial Analysis - Appendix](https://mgimond.github.io/Spatial/index.html) by Manuel Gimond
 - "Potential use of R-statistical programming in the field of geoscience" by @Bishwal_2017 in *International Conference for Convergence of Technology (I2CT)*.
+- "Using R in hydrology: a review of recent developments and future directions" by @Slater_2019 in *Hydrology and Earth System Sciences*.
 
 ## Bridges to GIS software:
 
@@ -17,3 +28,4 @@
 - SAGA with [{RSAGA}](https://github.com/r-spatial/RSAGA) by @Brenning_rsaga
 - QGIS with [{qgisprocess}](https://r-spatial.github.io/qgisprocess/) by @Dunnington_qgisprocess
 - ArcGIS with [{arcgisbinding}](https://r.esri.com/) by @Aydin_2024
+- CLI interface to various GIS software [{link2GI}](https://github.com/r-spatial/link2GI) by @Reudenbach_2023
