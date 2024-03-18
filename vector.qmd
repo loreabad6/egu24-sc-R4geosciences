@@ -82,7 +82,7 @@ st_transform(rivers, 8857) |> plot(main = "EPSG: 8857")
 ::: {.callout-tip}
 # CRS concepts 
 
-![](https://r-spatial.org/book/images/cover.jpg){width=25} [Section](https://r-spatial.org/book/02-Spaces.html#sec-crs) in Spatial Data Science [@Pebesma_2023] 
+![](https://r-spatial.org/book/images/cover.jpg){width=25} [Section](https://r-spatial.org/book/02-Spaces.html#sec-crs) in Spatial Data Science [@stars2023] 
 
 ![](https://r.geocompx.org/images/cover.png){width=25} [Section](https://r.geocompx.org/spatial-class#crs-intro) in Geocomputation with R [@lovelace_geocomputation_2019].
 :::
@@ -122,6 +122,8 @@ plot(gisborne$geom)
 
 Now, we can do operations like spatial filters and operations.
 Let's try filter the river data for the Gisborne region.
+
+[![](https://cdn.myportfolio.com/45214904-6a61-4e23-98d6-b140f8654a40/d6b4f8cb-53bf-49d5-822c-e45cd01204a4_rw_1920.png?h=9f4b33568bc02517ffe006cd7bba24f7)]{.aside}
 
 ```{r}
 #| error: true
@@ -181,7 +183,7 @@ plot(with$geom, col = "blue", add = TRUE)
 ::: {.callout-tip}
 # DE-9IM concepts 
 
-![](https://r-spatial.org/book/images/cover.jpg){width=25} [Section](https://r-spatial.org/book/03-Geometries.html#sec-de9im) in Spatial Data Science [@Pebesma_2023] 
+![](https://r-spatial.org/book/images/cover.jpg){width=25} [Section](https://r-spatial.org/book/03-Geometries.html#sec-de9im) in Spatial Data Science [@stars2023] 
 
 ![](https://r.geocompx.org/images/cover.png){width=25} [Section](https://r.geocompx.org/spatial-operations#DE-9IM-strings) in Geocomputation with R [@lovelace_geocomputation_2019].
 :::

@@ -8,7 +8,7 @@
 
 ## Books:
 
-- [Spatial Data Science with Applications in R](https://r-spatial.org/book/) by @Pebesma_2023
+- [Spatial Data Science with Applications in R](https://r-spatial.org/book/) by @stars2023
 - [Geocomputation with R](https://r.geocompx.org/) by @lovelace_geocomputation_2019
 - [sits: Satellite Image Time Series Analysis on Earth Observation Data Cubes](https://e-sensing.github.io/sitsbook/) by @Camara_sits_2023
 

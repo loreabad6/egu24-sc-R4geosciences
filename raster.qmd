@@ -91,7 +91,7 @@ landslides
 
 :::{.callout-tip}
 If you use the {tidyverse} and would like to include {terra} to your workflows, take a look at [{tidyterra}](https://dieghernan.github.io/tidyterra/).
-The package allows you to plot {terra} objects with [ggplot2] too!
+The package allows you to plot {terra} objects with {ggplot2} too!
 :::
 
 ### Predictions
