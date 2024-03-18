@@ -10,6 +10,7 @@
 
 - [Spatial Data Science with Applications in R](https://r-spatial.org/book/) by @Pebesma_2023
 - [Geocomputation with R](https://r.geocompx.org/) by @lovelace_geocomputation_2019
+- [sits: Satellite Image Time Series Analysis on Earth Observation Data Cubes](https://e-sensing.github.io/sitsbook/) by @Camara_sits_2023
 
 ## Blogs, Courses, Workshops & Articles:
 
@@ -22,6 +23,7 @@
 - [Introduction to Geospatial Raster and Vector Data with R](https://preview.carpentries.org/r-raster-vector-geospatial/index.html) by the Carpentries
 - "Potential use of R-statistical programming in the field of geoscience" by @Bishwal_2017 in *International Conference for Convergence of Technology (I2CT)*.
 - "Using R in hydrology: a review of recent developments and future directions" by @Slater_2019 in *Hydrology and Earth System Sciences*.
+- [Remote sensing in R resources and discussion](https://github.com/r-spatial/discuss/issues/56#issuecomment-1742136917)
 
 ## Bridges to GIS software:
 
