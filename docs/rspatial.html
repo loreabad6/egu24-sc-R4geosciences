@@ -252,6 +252,7 @@ div.csl-indent {
 <p>R-Spatial can be loosely defined as the ecosystem of code, projects and people using R for working with and adding value to spatial data.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 </blockquote>
 <p>The <a href="https://github.com/r-spatial">R-spatial organization</a> attempts to harmonise packages for spatial analysis in R, with a large number of R packages depending on {sf}, the core package for spatial data handling.</p>
+<p>A good overview of the available spatial libraries can be found in the <a href="https://cloud.r-project.org/web/views/Spatial.html">CRAN Task View: Analysis of Spatial Data</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://raw.githubusercontent.com/edzer/sdsr/main/images/sf_deps.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
@@ -261,14 +262,13 @@ div.csl-indent {
 </section>
 <section id="rspatial-counterpart" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="rspatial-counterpart"><span class="header-section-number">1.3</span> Rspatial counterpart</h2>
-<p>Not to be confused with R-spatial, the Rspatial resources include a different way to handle geospatial data in R. The main package, {terra} provides class and methods to represent raster and vector objects. It works well on large data sets and is a fast implementation mainly because it is written directly in C++. This means that, for example, a Python module could also be built on top of this library. {terra} is based on C++ modules like <code>gdal</code>, <code>geos</code> and <code>ncdf</code> for data handling.</p>
+<p>Not to be confused with R-spatial, the Rspatial resources include a different way to handle geospatial data in R. The main package {terra} provides classes and methods to represent raster and vector objects. It works well on large data sets and is a fast implementation mainly because it is written directly in C++. This means that, for example, a Python module could also be built on top of this library<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>. {terra} is based on C++ modules like <code>gdal</code>, <code>geos</code> and <code>ncdf</code> and builds it’s own spat module on C++ that interacts with R via the Rcpp module<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://bakaniko.github.io/foss4g2022-getting-started-rspatial/figs/terra-libs.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 <figcaption>{terra} set-up from <span class="citation" data-cites="Hijmans_terra_2020">R. Hijmans (<a href="references.html#ref-Hijmans_terra_2020" role="doc-biblioref">2020</a>)</span></figcaption>
 </figure>
 </div>
-<p>A good overview of the available spatial libraries can be found in the <a href="https://cloud.r-project.org/web/views/Spatial.html">CRAN Task View: Analysis of Spatial Data</a></p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
@@ -362,6 +362,8 @@ Xie, Yihui. 2014. <span>“Knitr: A Comprehensive Tool for Reproducible Research
 <hr>
 <ol>
 <li id="fn1"><p>https://www.osgeo.org/projects/r-spatial/<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>In theory, but has not been implemented yet<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>Even though a C++ implementation is in many cases faster, it is harder to understand, debug or modify.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
 
