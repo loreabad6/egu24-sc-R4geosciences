@@ -201,11 +201,11 @@ tm_shape(ndvi) +
 
 
 ::: {.callout-tip}
-R has seen a big advance in handling Earth observation data lately. 
+R has seen a big advance in handling Earth observation data lately.
 
 Packages like [{rstac}](https://brazil-data-cube.github.io/rstac/) and [{gdalcubes}](https://gdalcubes.github.io/) allow the creation of data cubes on-demand to analyse satellite imagery on cloud platforms.
 
-The [SITS](https://e-sensing.github.io/sitsbook/) package and resources have put together a great book to work with satellite image time series.
+The [SITS](https://e-sensing.github.io/sitsbook/) package and book are great resources to learn about satellite image time series analysis in data cube environments.
 :::
 
 ### Climate data
