@@ -39,16 +39,20 @@ Here are other courses on Python and Julia at EGU24:
 
 The [R-spatial organization](https://github.com/r-spatial) attempts to harmonise packages for spatial analysis in R, with a large number of R packages depending on {sf}, the core package for spatial data handling.
 
+A good overview of the available spatial libraries can be found in the [CRAN Task View: Analysis of Spatial Data](https://cloud.r-project.org/web/views/Spatial.html)
+
 ![R-spatial ecosystem from @stars2023](https://raw.githubusercontent.com/edzer/sdsr/main/images/sf_deps.png){fig-align="center"}
 
 ## Rspatial counterpart
 
 Not to be confused with R-spatial, the Rspatial resources include a different way to handle geospatial data in R. 
-The main package, {terra} provides class and methods to represent raster and vector objects. 
+The main package {terra} provides classes and methods to represent raster and vector objects. 
 It works well on large data sets and is a fast implementation mainly because it is written directly in C++.
-This means that, for example, a Python module could also be built on top of this library.
-{terra} is based on C++ modules like `gdal`, `geos` and `ncdf` for data handling. 
+This means that, for example, a Python module could also be built on top of this library[^2].
+{terra} is based on C++ modules like `gdal`, `geos` and `ncdf` and builds it's own spat module on C++ that interacts with R via the Rcpp module[^3].  
+
+[^2]: In theory, but has not been implemented yet
+
+[^3]: Even though a C++ implementation is in many cases faster, it is harder to understand, debug or modify.
 
 ![{terra} set-up from @Hijmans_terra_2020](https://bakaniko.github.io/foss4g2022-getting-started-rspatial/figs/terra-libs.png){fig-align="center"}
-
-A good overview of the available spatial libraries can be found in the [CRAN Task View: Analysis of Spatial Data](https://cloud.r-project.org/web/views/Spatial.html)
