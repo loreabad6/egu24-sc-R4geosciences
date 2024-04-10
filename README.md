@@ -33,4 +33,4 @@ install.packages(remotes)
 remotes::install_github("loreabad6/egu24-sc-R4geosciences")
 ```
 
-You can follow along in your own R script, or clone the repository to run the Quarto documents interactively.
+You can follow along in your own R script, or [clone the repository](https://github.com/loreabad6/egu24-sc-R4geosciences) to run the Quarto documents interactively.
